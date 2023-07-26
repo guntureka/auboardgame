@@ -16,7 +16,7 @@ const NavbarLeft = ({ session }: { session: any }) => {
       {session ? (
         <div className={`grid grid-cols-2`}>
           <Sheet>
-            <SheetTrigger className="">
+            <SheetTrigger>
               <FiBookOpen size={32} />
             </SheetTrigger>
             {admin ? (
@@ -56,7 +56,7 @@ const NavbarLeft = ({ session }: { session: any }) => {
               </SheetContent>
             )}
           </Sheet>
-          <div className="max-md:hidden mt-1">
+          <div className="max-md:hidden">
             <Link href={"/"}>
               <Image src={`/images/logo.png`} alt={`logo`} width={50} height={50} />
             </Link>
