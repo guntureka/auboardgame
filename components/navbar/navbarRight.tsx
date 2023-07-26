@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { AiOutlineMenu } from "react-icons/ai";
