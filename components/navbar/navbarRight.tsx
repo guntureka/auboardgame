@@ -21,8 +21,8 @@ const NavbarRight = ({ session }: { session: any }) => {
               <SheetTitle>Profile</SheetTitle>
             </SheetHeader>
             {MenuProfile.profile.map((item, index) => (
-              <SheetDescription className="flex flex-col w-full">
-                <SheetClose key={index} asChild>
+              <SheetDescription key={index} className="flex flex-col w-full">
+                <SheetClose asChild>
                   <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
                     {item.title}
                   </Link>
@@ -33,8 +33,8 @@ const NavbarRight = ({ session }: { session: any }) => {
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             {MenuProfile.menu.map((item, index) => (
-              <SheetDescription className="flex flex-col w-full">
-                <SheetClose key={index} asChild>
+              <SheetDescription key={index} className="flex flex-col w-full">
+                <SheetClose asChild>
                   <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
                     {item.title}
                   </Link>
@@ -49,8 +49,8 @@ const NavbarRight = ({ session }: { session: any }) => {
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             {MenuProfile.menu.map((item, index) => (
-              <SheetDescription className="flex flex-col w-full">
-                <SheetClose key={index} asChild>
+              <SheetDescription key={index} className="flex flex-col w-full">
+                <SheetClose asChild>
                   <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
                     {item.title}
                   </Link>

@@ -25,8 +25,8 @@ const NavbarLeft = ({ session }: { session: any }) => {
                   <SheetTitle>DASHBOARD</SheetTitle>
                 </SheetHeader>
                 {MenuProfile.dashboard.map((item, index) => (
-                  <SheetDescription className="flex flex-col w-full">
-                    <SheetClose key={index} asChild>
+                  <SheetDescription key={index} className="flex flex-col w-full">
+                    <SheetClose asChild>
                       <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
                         {item.title}
                       </Link>
@@ -44,8 +44,8 @@ const NavbarLeft = ({ session }: { session: any }) => {
                     return null;
                   }
                   return (
-                    <SheetDescription className="flex flex-col w-full">
-                      <SheetClose key={index} asChild>
+                    <SheetDescription key={index} className="flex flex-col w-full">
+                      <SheetClose asChild>
                         <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
                           {item.title}
                         </Link>
