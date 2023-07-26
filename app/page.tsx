@@ -21,7 +21,7 @@ export default async function Home() {
         <h1 className="font-bold text-4xl">WHAT IS AU BOARD GAME?</h1>
         <p className="text-justify">
           Discover the captivating world of AU Board Game, where strategy meets excitement. Immerse yourself in an engaging and interactive gaming experience that challenges your intellect and decision-making skills. Explore a myriad of
-          intriguing scenarios, each offering unique challenges and rewards. Whether you're a seasoned board game enthusiast or new to the genre, AU Board Game guarantees hours of fun and unforgettable moments with friends and family.
+          intriguing scenarios, each offering unique challenges and rewards. Whether you&apos;re a seasoned board game enthusiast or new to the genre, AU Board Game guarantees hours of fun and unforgettable moments with friends and family.
           Unleash your competitive spirit and embark on an adventure that will keep you hooked from the very first roll of the dice.
         </p>
         <div className="flex items-center">
