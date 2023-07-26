@@ -14,7 +14,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="bg-red-500 flex flex-col gap-5 items-center justify-center p-20">
-          <Image src={"/papan.png"} width={400} height={400} alt="papan" />
+          <Image src={"/images/papan.png"} width={400} height={400} alt="papan" />
         </div>
       </div>
       <div className="flex flex-col gap-5 justify-center items-center p-12">
