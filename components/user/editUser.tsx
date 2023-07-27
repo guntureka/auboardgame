@@ -41,7 +41,7 @@ const EditUser = ({ user }: { user: User }) => {
       } else {
         if (form.getValues("password") === user.password) {
           const res = await fetch(`/api/user/${user.id}`, {
-            method: "PUT",
+            method: "PATCH",
             body: JSON.stringify({
               name: form.getValues("name"),
               username: form.getValues("username"),
@@ -58,7 +58,7 @@ const EditUser = ({ user }: { user: User }) => {
           }
         } else {
           const res = await fetch(`/api/user/${user.id}`, {
-            method: "PUT",
+            method: "PATCH",
             body: JSON.stringify(form.getValues()),
           });
           if (!res.ok) {
