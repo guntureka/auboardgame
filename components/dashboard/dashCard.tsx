@@ -1,5 +1,7 @@
 import { Data } from "@/app/(dashboard)/dashboard/page";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+
+
 const DashboardCard = ({ data }: { data: Data[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

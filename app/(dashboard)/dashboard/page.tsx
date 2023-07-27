@@ -18,8 +18,24 @@ const getAllusers = async () => {
   return data.length;
 };
 
+const getAllCategory = async () => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/category`, {
+    method: "GET",
+  });
+  const data = await res.json();
+  return data.length;
+};
+
+const getAllQuiz = async () => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
+    method: "GET",
+  });
+  const data = await res.json();
+  return data.length;
+};
+
 const DashboardPage = async () => {
-  const users = await getAllusers();
+  const [users, categories, quiz] = await Promise.all([getAllusers(), getAllCategory(), getAllQuiz()]);
   console.log(users);
 
   const Data = [
@@ -27,6 +43,11 @@ const DashboardPage = async () => {
       name: "User",
       description: "Banyaknya user yang terdaftar",
       data: users,
+    },
+    {
+      name: "Category",
+      description: "Banyaknya kategori yang terdaftar",
+      data: categories,
     },
     {
       name: "Question",
@@ -44,9 +65,9 @@ const DashboardPage = async () => {
       data: 0,
     },
     {
-      name: "Game",
-      description: "Banyaknya game yang terdaftar",
-      data: 0,
+      name: "Quiz",
+      description: "Banyaknya quiz yang terdaftar",
+      data: quiz,
     },
   ];
 
