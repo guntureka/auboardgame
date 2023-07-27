@@ -39,45 +39,26 @@ const EditUser = ({ user }: { user: User }) => {
           description: `Please fill all the fields`,
         });
       } else {
-        if (form.getValues("password") === user.password ) {
-          const res = await fetch(`/api/user/${user.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-              name: form.getValues("name"),
-              username: form.getValues("username"),
-              role: form.getValues("role"),
-            }),
-          });
-          if (!res.ok) {
-            toast({
-              variant: "destructive",
-              title: "User Exists",
-              description: `${form.getValues("username")} has been already exists in database`,
-            });
-            return;
-          }
-        } else {
-          const res = await fetch(`/api/user/${user.id}`, {
-            method: "PATCH",
-            body: JSON.stringify(form.getValues()),
-          });
-          if (!res.ok) {
-            toast({
-              variant: "destructive",
-              title: "User Exists",
-              description: `${form.getValues("username")} has been already exists in database`,
-            });
-            return;
-          }
-        }
-        toast({
-          variant: "default",
-          className: "bg-green-500",
-          title: "User updated",
-          description: `${form.getValues("username")} has been updated to database`,
+        const res = await fetch(`/api/user/${user.id}`, {
+          method: "PATCH",
+          body: JSON.stringify(form.getValues()),
         });
-        router.refresh();
+        if (!res.ok) {
+          toast({
+            variant: "destructive",
+            title: "User Exists",
+            description: `${form.getValues("username")} has been already exists in database`,
+          });
+          return;
+        }
       }
+      toast({
+        variant: "default",
+        className: "bg-green-500",
+        title: "User updated",
+        description: `${form.getValues("username")} has been updated to database`,
+      });
+      router.refresh();
     } catch (error) {}
   };
 

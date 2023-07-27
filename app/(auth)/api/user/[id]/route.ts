@@ -54,6 +54,10 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
     user.password = await hash(body.password, 10);
   }
 
+  if (body.role) {
+    user.role = body.role;
+  }
+
   const res = await prisma.user.update({
     where: {
       id: params.id,
