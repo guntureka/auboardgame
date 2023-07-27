@@ -14,47 +14,40 @@ const NavbarLeft = ({ session }: { session: any }) => {
   return (
     <div>
       {session ? (
-        <div className={`grid grid-cols-2`}>
+        <div className="flex items-center justify-between gap-3">
           <Sheet>
             <SheetTrigger>
               <FiBookOpen size={32} />
             </SheetTrigger>
-            {admin ? (
-              <SheetContent side={"left"} className="flex flex-col justify-start items-start w-[250px]">
-                <SheetHeader>
-                  <SheetTitle>DASHBOARD</SheetTitle>
-                </SheetHeader>
-                {MenuProfile.dashboard.map((item, index) => (
-                  <SheetDescription key={index} className="flex flex-col w-full">
-                    <SheetClose asChild>
-                      <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
+            <SheetContent side={"left"} className="flex flex-col justify-start items-start w-[250px]">
+              <SheetHeader>
+                <SheetTitle>DASHBOARD</SheetTitle>
+              </SheetHeader>
+              <SheetDescription className="flex flex-col w-full">
+                {admin ? (
+                  <SheetClose asChild>
+                    {MenuProfile.dashboard.map((item, index) => (
+                      <Link href={item.link} key={index}>
                         {item.title}
                       </Link>
-                    </SheetClose>
-                  </SheetDescription>
-                ))}
-              </SheetContent>
-            ) : (
-              <SheetContent side={"left"} className="flex flex-col justify-start items-start w-[250px]">
-                <SheetHeader>
-                  <SheetTitle>DASHBOARD</SheetTitle>
-                </SheetHeader>
-                {MenuProfile.dashboard.map((item, index) => {
-                  if (item.title === "USER" || item.title === "CATEGORY") {
-                    return null;
-                  }
-                  return (
-                    <SheetDescription key={index} className="flex flex-col w-full">
-                      <SheetClose asChild>
-                        <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
+                    ))}
+                  </SheetClose>
+                ) : (
+                  <SheetClose asChild>
+                    {MenuProfile.dashboard.map((item, index) => {
+                      if (item.title === "user" || item.title === "category") {
+                        return null;
+                      }
+                      return (
+                        <Link href={item.link} key={index}>
                           {item.title}
                         </Link>
-                      </SheetClose>
-                    </SheetDescription>
-                  );
-                })}
-              </SheetContent>
-            )}
+                      );
+                    })}
+                  </SheetClose>
+                )}
+              </SheetDescription>
+            </SheetContent>
           </Sheet>
           <div className="max-md:hidden">
             <Link href={"/"}>
@@ -63,11 +56,9 @@ const NavbarLeft = ({ session }: { session: any }) => {
           </div>
         </div>
       ) : (
-        <div>
-          <Link href={"/"}>
-            <Image src={`/images/logo.png`} alt={`logo`} width={50} height={50} />
-          </Link>
-        </div>
+        <Link href={"/"}>
+          <Image src={`/images/logo.png`} alt={`logo`} width={50} height={50} />
+        </Link>
       )}
     </div>
   );

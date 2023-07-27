@@ -1,6 +1,8 @@
-import { getAllUser } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { FiBook } from "react-icons/fi";
+import { AiFillQuestionCircle } from "react-icons/ai";
+import { FaFortAwesome } from "react-icons/fa";
 
 export default async function Home() {
   return (
@@ -32,24 +34,36 @@ export default async function Home() {
         <h1 className="font-bold text-4xl text-center">
           Do you want to <span className="text-red-500">know more</span> about the <span className="text-red-500">AU Board Game</span>?
         </h1>
-        <div className="grid md:grid-cols-3 grid-cols-1">
-          <div className="flex flex-col gap-3 items-center justify-center px-5">
-            <Image src={"/logo.png"} width={150} height={150} alt="papan" />
-            <h1 className="font-bold text-2xl">PLAYING GUIDE</h1>
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+          <div className="flex flex-col gap-3 items-center px-5">
+            <div>
+              <FiBook size={150} />
+            </div>
+            <h1 className="font-bold text-2xl h-[60px]">PLAYING GUIDE</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"}>View more</Button>
+            <Button variant={"outline"} className="rounded-2xl border-primary">
+              View more
+            </Button>
           </div>
-          <div className="flex flex-col gap-3 items-center justify-center px-5">
-            <Image src={"/logo.png"} width={150} height={150} alt="papan" />
-            <h1 className="font-bold text-2xl">QUESTION</h1>
+          <div className="flex flex-col gap-3 items-center px-5">
+            <div>
+              <AiFillQuestionCircle size={150} />
+            </div>
+            <h1 className="font-bold text-2xl h-[60px]">QUESTION</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"}>View more</Button>
+            <Button variant={"outline"} className="rounded-2xl border-primary">
+              View more
+            </Button>
           </div>
-          <div className="flex flex-col gap-3 items-center justify-center px-5">
-            <Image src={"/logo.png"} width={150} height={150} alt="papan" />
-            <h1 className="font-bold text-2xl">CULTURE FACTS</h1>
+          <div className="flex flex-col gap-3 items-center px-5">
+            <div>
+              <FaFortAwesome size={150} />
+            </div>
+            <h1 className="font-bold text-2xl h-[60px]">CULTURE FACTS</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"}>View more</Button>
+            <Button variant={"outline"} className="rounded-2xl border-primary">
+              View more
+            </Button>
           </div>
         </div>
       </div>

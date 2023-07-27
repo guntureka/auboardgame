@@ -6,8 +6,11 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { MenuProfile } from "@/lib/menu";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const NavbarRight = ({ session }: { session: any }) => {
+  const router = useRouter();
   return (
     <div>
       {/* Mobile device */}
@@ -41,7 +44,11 @@ const NavbarRight = ({ session }: { session: any }) => {
                 </SheetClose>
               </SheetDescription>
             ))}
-            <Button className="w-full">Sign out</Button>
+            <SheetClose asChild>
+              <Button className="w-full" onClick={() => signOut()}>
+                Sign out
+              </Button>
+            </SheetClose>
           </SheetContent>
         ) : (
           <SheetContent side={"right"} className="flex flex-col justify-start items-start w-[250px]">
@@ -57,8 +64,16 @@ const NavbarRight = ({ session }: { session: any }) => {
                 </SheetClose>
               </SheetDescription>
             ))}
-            <Button className="w-full">Sign in</Button>
-            <Button className="w-full">Sign out</Button>
+            <SheetClose asChild>
+              <Button className="w-full" onClick={() => signIn()}>
+                Sign in
+              </Button>
+            </SheetClose>
+            <SheetClose asChild>
+              <Button className="w-full" onClick={() => router.push("/signup")}>
+                Sign up
+              </Button>
+            </SheetClose>
           </SheetContent>
         )}
       </Sheet>

@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Suspense fallback={<Loading />}>
             <Navbar />
-            <main className="container">{children}</main>
+            {children}
+            <Footer />
           </Suspense>
           <Toaster />
         </Providers>

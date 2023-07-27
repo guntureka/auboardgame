@@ -51,4 +51,22 @@ export const MenuProfile = {
       link: "/dashboard/player",
     },
   ],
+  support: [
+    {
+      title: "CONTACT US",
+      link: "/contact",
+    },
+    {
+      title: "PRIVACY POLICY",
+      link: "/privacy-policy",
+    },
+    {
+      title: "TERMS & CONDITIONS",
+      link: "/terms-conditions",
+    },
+    {
+      title: "FAQ",
+      link: "/faq",
+    },
+  ],
 };
