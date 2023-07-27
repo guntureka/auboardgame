@@ -39,17 +39,36 @@ const EditUser = ({ user }: { user: User }) => {
           description: `Please fill all the fields`,
         });
       } else {
-        const res = await fetch(`/api/user/${user.id}`, {
-          method: "PUT",
-          body: JSON.stringify(form.getValues()),
-        });
-        if (!res.ok) {
-          toast({
-            variant: "destructive",
-            title: "User Exists",
-            description: `${form.getValues("username")} has been already exists in database`,
+        if (form.getValues("password") === user.password) {
+          const res = await fetch(`/api/user/${user.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              name: form.getValues("name"),
+              username: form.getValues("username"),
+              role: form.getValues("role"),
+            }),
           });
-          return;
+          if (!res.ok) {
+            toast({
+              variant: "destructive",
+              title: "User Exists",
+              description: `${form.getValues("username")} has been already exists in database`,
+            });
+            return;
+          }
+        } else {
+          const res = await fetch(`/api/user/${user.id}`, {
+            method: "PUT",
+            body: JSON.stringify(form.getValues()),
+          });
+          if (!res.ok) {
+            toast({
+              variant: "destructive",
+              title: "User Exists",
+              description: `${form.getValues("username")} has been already exists in database`,
+            });
+            return;
+          }
         }
         toast({
           variant: "default",
