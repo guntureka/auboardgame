@@ -63,6 +63,7 @@ model Answer {
 
 model Quiz {
   id          String   @id @default(cuid())
+  quiz        String
   player      Player[]
   user        User     @relation(fields: [userId], references: [id])
   userId      String
