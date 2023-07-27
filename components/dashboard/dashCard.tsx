@@ -3,8 +3,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 const DashboardCard = ({ data }: { data: Data[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-      {data.map((item) => (
-        <Card>
+      {data.map((item, index) => (
+        <Card key={index}>
           <CardHeader>
             <CardTitle>{item.name}</CardTitle>
             <CardDescription className="h-[65px]">{item.description}</CardDescription>
