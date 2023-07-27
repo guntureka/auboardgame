@@ -5,7 +5,7 @@ import authOptions from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
 
-export const getAllCategory = async () => {
+const getAllCategory = async () => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/category`, {
     method: "GET",
   }).then((res) => res.json());
