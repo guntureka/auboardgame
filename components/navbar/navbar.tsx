@@ -1,29 +1,32 @@
 "use client";
 
-import NavbarMenu from "./navbarMiddle";
-import NavbarProfile from "./navbarRight";
-import NavbarLeft from "./navbarLeft";
 import { Separator } from "../ui/separator";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { AiOutlineMenu } from "react-icons/ai";
-import { MenuProfile } from "@/lib/menu";
-import { Button } from "../ui/button";
-import { FiBookOpen } from "react-icons/fi";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+
+const NavbarLeft = dynamic(() => import("./navbarLeft"), { ssr: false })
+const NavbarMenu = dynamic(() => import("./navbarMiddle"), { ssr: false })
+const NavbarProfile = dynamic(() => import("./navbarRight"), { ssr: false })
 
 const Navbar = () => {
   const { data: session } = useSession();
   return (
     <header className="container">
       <nav className="flex flex-row justify-between items-center gap-3 my-4">
-        {/* logo */}
-        <NavbarLeft session={session} />
-        {/* Nav Menu */}
+        <div className="flex flex-row justify-between gap-3 items-center">
+          <div className={session ? "flex" : "hidden"}>
+            <NavbarLeft session={session}/>
+          </div>
+          <div className={session ? "hidden md:flex" : "flex"}>
+            <Link href={"/"}>
+              <Image src={`/images/logo.png`} alt={`logo`} width={50} height={50} />
+            </Link>
+          </div>
+        </div>
         <NavbarMenu session={session} />
-        {/* Nav Profile */}
         <NavbarProfile session={session} />
       </nav>
       <Separator />

@@ -1,10 +1,12 @@
-import LoginForm from "@/components/login/loginForm";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const LoginForm = dynamic(() => import("@/components/login/loginForm"), { ssr: false });
 
 const LoginPage = async () => {
   const session = await getServerSession(authOptions);
