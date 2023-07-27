@@ -39,7 +39,7 @@ const EditUser = ({ user }: { user: User }) => {
           description: `Please fill all the fields`,
         });
       } else {
-        if (form.getValues("password") === user.password) {
+        if (form.getValues("password") === user.password ) {
           const res = await fetch(`/api/user/${user.id}`, {
             method: "PATCH",
             body: JSON.stringify({
