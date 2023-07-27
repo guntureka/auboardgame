@@ -50,7 +50,7 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
     user.username = body.username.toLowerCase().replace(" ", "");
   }
 
-  if (body.password) {
+  if (body.password && body.password !== user.password) {
     user.password = await hash(body.password, 10);
   }
 
