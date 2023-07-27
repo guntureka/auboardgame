@@ -45,7 +45,7 @@ const AddQuiz = () => {
           AllQuestion: Boolean(form.getValues().AllQuestion),
           userId: session?.user?.id,
         }),
-      }).then((res) => res.json());
+      })
       if (res.ok) {
         form.reset();
         router.refresh();
@@ -55,6 +55,12 @@ const AddQuiz = () => {
           description: "Quiz added successfully",
         });
       }
+
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: "Something went wrong",
+      });
     } catch (error) {
       console.log(error);
     }
