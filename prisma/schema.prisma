@@ -62,12 +62,13 @@ model Answer {
 }
 
 model Quiz {
-  id        String   @id @default(cuid())
-  player    Player[]
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  player      Player[]
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  AllQuestion Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@index([userId])
 }

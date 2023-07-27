@@ -17,7 +17,11 @@ const UserPage = async () => {
   const session = await getServerSession(authOptions);
   const role = session?.user?.role;
   if (role !== "admin") {
-    return <div>Not Found</div>;
+    return (
+      <div>
+        <h1 className="text-center text-4xl font-bold">Not Found</h1>
+      </div>
+    );
   }
   const user = await getData();
   return (
