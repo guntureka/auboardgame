@@ -40,7 +40,7 @@ const EditUser = ({ user }: { user: User }) => {
         });
       } else {
         const res = await fetch(`/api/user/${user.id}`, {
-          method: "PATCH",
+          method: "PUT",
           body: JSON.stringify(form.getValues()),
         });
         if (!res.ok) {
