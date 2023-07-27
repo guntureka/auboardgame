@@ -53,7 +53,7 @@ const EditUser = ({ user }: { user: User }) => {
           return;
         }
         await fetch(`/api/user/${user.id}`, {
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify(form.getValues()),
         });
         toast({

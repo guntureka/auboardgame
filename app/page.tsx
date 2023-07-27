@@ -6,7 +6,7 @@ import { FiBook } from "react-icons/fi";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { FaFortAwesome } from "react-icons/fa";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div>
       <div className="grid md:grid-cols-2 grid-cols-1">

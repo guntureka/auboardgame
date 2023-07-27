@@ -7,7 +7,7 @@ export const GET = async (request: Request, {params}: {params: {id: string}}) =>
   return NextResponse.json(users, { status: 201 });
 }
 
-export const PUT = async (request: Request, {params}: {params: {id: string}}) => {
+export const PATCH = async (request: Request, {params}: {params: {id: string}}) => {
   const body = await request.json();
   const user = await prisma.user.update({
     where: {
