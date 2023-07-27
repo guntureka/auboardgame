@@ -30,18 +30,20 @@ const NavbarRight = ({ session }: { session: any }) => {
               </SheetClose>
             </SheetDescription>
           ))}
-          <SheetHeader>
-            <SheetTitle>Menu</SheetTitle>
-          </SheetHeader>
-          {MenuProfile.menu.map((item, index) => (
-            <SheetDescription key={index} className="flex flex-col w-full">
-              <SheetClose asChild>
-                <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
-                  {item.title}
-                </Link>
-              </SheetClose>
-            </SheetDescription>
-          ))}
+          <div className="md:hidden w-full flex flex-col gap-3">
+            <SheetHeader >
+              <SheetTitle className="text-start">Menu</SheetTitle>
+            </SheetHeader>
+            {MenuProfile.menu.map((item, index) => (
+              <SheetDescription key={index} className="flex flex-col w-full">
+                <SheetClose asChild>
+                  <Link href={item.link} className="py-2 hover:bg-primary hover:text-white rounded hover:px-2 ">
+                    {item.title}
+                  </Link>
+                </SheetClose>
+              </SheetDescription>
+            ))}
+          </div>
           <SheetClose asChild>
             <Button className="w-full" onClick={() => signOut()}>
               Sign out
@@ -63,7 +65,7 @@ const NavbarRight = ({ session }: { session: any }) => {
             </SheetDescription>
           ))}
           <SheetClose asChild>
-            <Button className="w-full" onClick={() => signIn()}>
+            <Button className="w-full" onClick={() => router.push("/signin")}>
               Sign in
             </Button>
           </SheetClose>

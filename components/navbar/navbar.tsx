@@ -17,7 +17,7 @@ const Navbar = () => {
     <header className="container">
       <nav className="flex flex-row justify-between items-center gap-3 my-4">
         <div className="flex flex-row justify-between gap-3 items-center">
-          <div className={session ? "flex" : "hidden"}>
+          <div className={session ? "md:hidden flex" : "hidden"}>
             <NavbarLeft session={session}/>
           </div>
           <div className={session ? "hidden md:flex" : "flex"}>

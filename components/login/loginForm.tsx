@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";

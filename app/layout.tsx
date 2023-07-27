@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Suspense fallback={<Loading />}>
             <Navbar />
-            {children}
+            <main className="container">{children}</main>
             <Footer />
           </Suspense>
           <Toaster />

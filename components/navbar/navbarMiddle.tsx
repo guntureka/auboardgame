@@ -31,7 +31,7 @@ const NavbarMiddle = ({ session }: { session: any }) => {
       </NavigationMenu>
       <div className="md:hidden">
         <Link href={'/'}>
-            <h1 className="font-bold text-2xl">AU BOARD GAME</h1>
+            <h1 className="font-bold text-xl">AU BOARD GAME</h1>
         </Link>
       </div>
     </div>

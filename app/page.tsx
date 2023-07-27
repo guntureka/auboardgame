@@ -8,7 +8,7 @@ import { FaFortAwesome } from "react-icons/fa";
 
 export default async function Home() {
   return (
-    <main className="container">
+    <div>
       <div className="grid md:grid-cols-2 grid-cols-1">
         <div className="bg-blue-500 flex flex-col gap-5 items-start justify-center p-20">
           <h1 className="font-bold text-4xl">Welcome to our official website</h1>
@@ -77,6 +77,6 @@ export default async function Home() {
           Say goodbye to monotonous learning routines and embrace the excitement of learning through play. Our board games ignite curiosity and fuel a passion for knowledge, making education an enthralling journey for everyone involved.
         </p>
       </div>
-    </main>
+    </div>
   );
 }
