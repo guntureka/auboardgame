@@ -54,6 +54,7 @@ const LoginForm = () => {
             title: "Success",
             description: "Logged in successfully",
           });
+          router.push("/");
         });
       } catch (error) {
         console.log(error);
