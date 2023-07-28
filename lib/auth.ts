@@ -66,9 +66,6 @@ export const authOptions: NextAuthOptions = {
         username: users.username,
       };
     },
-    async redirect({ url, baseUrl }) {
-      return url.startsWith("/") ? url : baseUrl;
-    },
   },
 };
 
