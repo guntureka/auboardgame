@@ -44,8 +44,6 @@ const getAllQuestion = async () => {
 
 const DashboardPage = async () => {
   const [users, categories, quiz, questions] = await Promise.all([getAllusers(), getAllCategory(), getAllQuiz(), getAllQuestion()]);
-  console.log(users);
-
   const Data = [
     {
       name: "User",
