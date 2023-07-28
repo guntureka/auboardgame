@@ -9,6 +9,8 @@ export const GET = async (request: Request, { params }: { params: { slug: string
     },
     include: {
       answer: true,
+      category: true,
+      user: true,
     },
   });
   return NextResponse.json(question, { status: 201 });
