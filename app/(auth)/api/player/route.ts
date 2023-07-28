@@ -7,7 +7,6 @@ export const GET = async (request: Request) => {
       quiz: true,
     },
   });
-
   return NextResponse.json(player, { status: 201 });
 };
 
