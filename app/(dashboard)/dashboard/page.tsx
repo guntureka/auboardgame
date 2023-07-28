@@ -44,6 +44,7 @@ const getAllQuestion = async () => {
 
 const DashboardPage = async () => {
   const [users, categories, quiz, questions] = await Promise.all([getAllusers(), getAllCategory(), getAllQuiz(), getAllQuestion()]);
+
   const Data = [
     {
       name: "User",
@@ -71,7 +72,6 @@ const DashboardPage = async () => {
       data: quiz,
     },
   ];
-
   return (
     <div>
       <div className="my-5">
