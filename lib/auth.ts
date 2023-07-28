@@ -68,7 +68,17 @@ export const authOptions: NextAuthOptions = {
       };
     },
     redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      if (url.startsWith("/")) return `${baseUrl}${url}`; //`${baseUrl}${url}
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        return "/signin";
+      }
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
