@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Console } from "console";
 
 const LoginForm = () => {
   const { toast } = useToast();
@@ -37,6 +38,7 @@ const LoginForm = () => {
           username: form.getValues().username,
           password: form.getValues().password,
           redirect: false,
+          callbackUrl: "/",
         }).then((res) => {
           if (res?.error) {
             toast({
@@ -44,14 +46,15 @@ const LoginForm = () => {
               title: "Error",
               description: res.error,
             });
+            console.log(res);
+            return;
           }
+          toast({
+            variant: "default",
+            title: "Success",
+            description: "Logged in successfully",
+          });
         });
-        toast({
-          variant: "default",
-          title: "Success",
-          description: "Logged in successfully",
-        });
-        router.push("/");
       } catch (error) {
         console.log(error);
       }

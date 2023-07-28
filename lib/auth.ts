@@ -11,6 +11,8 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/signin",
+    error: "/signin",
+    signOut: "/",
   },
   providers: [
     CredentialsProvider({
@@ -66,13 +68,21 @@ export const authOptions: NextAuthOptions = {
         username: users.username,
       };
     },
-    redirect({ url, baseUrl }) {
-      if (url.startsWith("/")) return `${baseUrl}${url}`; //`${baseUrl}${url}
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },
+    async signIn({ user, account, profile, email, credentials }) {
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return true;
+      }
+      return "/signin";
+    },
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default authOptions;

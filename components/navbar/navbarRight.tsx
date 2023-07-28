@@ -31,7 +31,7 @@ const NavbarRight = ({ session }: { session: any }) => {
             </SheetDescription>
           ))}
           <div className="md:hidden w-full flex flex-col gap-3">
-            <SheetHeader >
+            <SheetHeader>
               <SheetTitle className="text-start">Menu</SheetTitle>
             </SheetHeader>
             {MenuProfile.menu.map((item, index) => (
@@ -45,7 +45,7 @@ const NavbarRight = ({ session }: { session: any }) => {
             ))}
           </div>
           <SheetClose asChild>
-            <Button className="w-full" onClick={() => signOut()}>
+            <Button className="w-full" onClick={() => signOut({ callbackUrl: "/" })}>
               Sign out
             </Button>
           </SheetClose>
