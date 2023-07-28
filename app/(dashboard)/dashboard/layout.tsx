@@ -1,9 +1,10 @@
-import { Session } from "next-auth";
 import React, { Suspense } from "react";
 import Loading from "./loading";
 import DashMenu from "@/components/dashboard/dashMenu";
+import { SessionProvider } from "next-auth/react";
+import Providers from "@/app/providers";
 
-const LoginLayout = ({ children }: { children: React.ReactNode }, session: Session) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <section>
       <Suspense fallback={<Loading />}>
@@ -18,4 +19,4 @@ const LoginLayout = ({ children }: { children: React.ReactNode }, session: Sessi
   );
 };
 
-export default LoginLayout;
+export default DashboardLayout;

@@ -8,19 +8,26 @@ import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import type { Answer, Category, User, Player } from "@prisma/client";
-import EditGame from "./editGame";
+import ProfileCard from "../profile/profileCard";
+import type { Answer, Category, User } from "@prisma/client";
+import { useState } from "react";
+import EditQuestion from "./editQuestion";
 
-interface Quiz {
+export interface Question {
   id: string;
-  allQuestion: boolean;
-  quiz: string;
-  createdAt: string;
-  updatedAt: string;
-  user: User;
+  difficulty: string;
+  question: string;
+  userId: string;
+  user: {
+    id: string;
+    name: string;
+  };
+  categoryId: string;
+  category: Category;
+  answer: Answer[];
 }
 
-export const columns: ColumnDef<Quiz>[] = [
+export const columns: ColumnDef<Question>[] = [
   {
     id: "select",
     header: ({ table }) => <Checkbox checked={table.getIsAllRowsSelected()} onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all" />,
@@ -60,22 +67,37 @@ export const columns: ColumnDef<Quiz>[] = [
     },
   },
   {
-    accessorKey: "quiz",
+    accessorKey: "difficulty",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
-          Quiz
+          Difficulty
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "allQuestion",
+    accessorKey: "category",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
-          All Question
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const category = row.original.category.category;
+      return <div>{category}</div>;
+    },
+  },
+  {
+    accessorKey: "question",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
+          Question
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -113,18 +135,17 @@ export const columns: ColumnDef<Quiz>[] = [
     id: "action",
     header: "Action",
     cell: ({ row }) => {
-      const quiz = row.original;
-
-      return <ActionQuiz quiz={quiz} />;
+      const question = row.original;
+      return <Action question={question} />;
     },
   },
 ];
 
-const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
+const Action = ({ question }: { question: Question }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const res = await fetch(`/api/game/${quiz.id}`, {
+    const res = await fetch(`/api/question/${question.id}`, {
       method: "DELETE",
     });
 
@@ -134,7 +155,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
         variant: "default",
         className: "bg-green-500",
         title: "Success",
-        description: `game deleted successfully`,
+        description: `question deleted successfully`,
       });
     } else {
       toast({
@@ -157,7 +178,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <EditGame quiz={quiz} />
+        <EditQuestion question={question} />
         <DropdownMenuSeparator />
         <AlertDialog>
           <AlertDialogTrigger asChild>

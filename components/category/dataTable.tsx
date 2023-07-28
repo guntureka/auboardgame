@@ -58,16 +58,16 @@ export const CategoryDataTable = <TData, TValue>({ columns, data }: DataTablePro
 
   const handleDelete = async ({ selected }: { selected: any }) => {
     try {
-      selected.forEach(async (category: any) => {
+      selected.map(async (category: { id: string }) => {
         await fetch(`/api/category/${category.id}`, {
           method: "DELETE",
         });
-      });
-      router.refresh();
-      toast({
-        variant: "destructive",
-        title: "category deleted!",
-        description: `categories has been deleted.`,
+        toast({
+          variant: "destructive",
+          title: "category deleted!",
+          description: `categories has been deleted.`,
+        });
+        router.refresh();
       });
     } catch (error) {
       console.log(error);

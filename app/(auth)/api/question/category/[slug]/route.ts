@@ -8,7 +8,7 @@ export const GET = async (request: Request) => {
       answer: true,
       category: true,
       user: true,
-    }
+    },
   });
   return NextResponse.json(question, { status: 201 });
 };
@@ -23,3 +23,7 @@ export const POST = async (request: Request) => {
 
   return NextResponse.json(question, { status: 201 });
 };
+
+export const DELETE = async (request: Request, { params }: { params: { slug: string } }) => {
+    
+}

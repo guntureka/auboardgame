@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 interface Quiz {
   id: string;
-  AllQuestion: boolean;
+  allQuestion: boolean;
   quiz: string;
   createdAt: string;
   updatedAt: string;
@@ -28,16 +28,15 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
   const form = useForm({
     defaultValues: {
       quiz: quiz.quiz,
-      AllQuestion: String(quiz.AllQuestion),
+      allQuestion: String(quiz.allQuestion),
     },
   });
 
   const onSubmit = async () => {
     let quizes = false;
-    if (form.getValues().AllQuestion === "true") {
+    if (form.getValues().allQuestion === "true") {
       quizes = true;
     }
-    console.log(form.getValues().quiz, Boolean(form.getValues().AllQuestion));
     try {
       if (form.getValues().quiz === "") {
         toast({
@@ -52,10 +51,9 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
         method: "PUT",
         body: JSON.stringify({
           quiz: form.getValues().quiz,
-          AllQuestion: quizes,
+          allQuestion: quizes,
         }),
       });
-      console.log(res);
       if (res.ok) {
         router.refresh();
         toast({
@@ -104,7 +102,7 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
             />
             <FormField
               control={form.control}
-              name="AllQuestion"
+              name="allQuestion"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Game</FormLabel>

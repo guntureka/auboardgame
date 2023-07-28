@@ -14,20 +14,20 @@ import { ScrollArea } from "../ui/scroll-area";
 import { toast } from "../ui/use-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 
-const AddQuiz = () => {
+const AddQuiz = ({ session }: { session: Session }) => {
   const router = useRouter();
-  const { data: session } = useSession();
 
   const form = useForm({
     defaultValues: {
       quiz: "",
-      AllQuestion: "",
+      allQuestion: "",
     },
   });
 
   const onSubmit = async () => {
-    console.log(form.getValues().quiz, Boolean(form.getValues().AllQuestion));
+    console.log(form.getValues().quiz, Boolean(form.getValues().allQuestion));
     try {
       if (form.getValues().quiz === "") {
         toast({
@@ -42,10 +42,10 @@ const AddQuiz = () => {
         method: "POST",
         body: JSON.stringify({
           quiz: form.getValues().quiz,
-          AllQuestion: Boolean(form.getValues().AllQuestion),
+          allQuestion: Boolean(form.getValues().allQuestion),
           userId: session?.user?.id,
         }),
-      })
+      });
       if (res.ok) {
         form.reset();
         router.refresh();
@@ -54,6 +54,7 @@ const AddQuiz = () => {
           variant: "default",
           description: "Quiz added successfully",
         });
+        return;
       }
 
       toast({
@@ -92,7 +93,7 @@ const AddQuiz = () => {
             />
             <FormField
               control={form.control}
-              name="AllQuestion"
+              name="allQuestion"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Game</FormLabel>

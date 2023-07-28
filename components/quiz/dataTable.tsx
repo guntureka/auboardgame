@@ -63,12 +63,12 @@ export const QuizDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
         await fetch(`/api/question/${question.id}`, {
           method: "DELETE",
         });
-      });
-      router.refresh();
-      toast({
-        variant: "destructive",
-        title: "question deleted!",
-        description: `questions has been deleted.`,
+        toast({
+          variant: "destructive",
+          title: "question deleted!",
+          description: `questions has been deleted.`,
+        });
+        router.refresh();
       });
     } catch (error) {
       console.log(error);

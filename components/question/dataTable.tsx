@@ -9,18 +9,14 @@ import React from "react";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { User } from "@prisma/client";
+import type { Category } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
-  const { data: session } = useSession();
-  const role = session?.user?.role;
-
+export const QuestionDataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
   // answer data
   const router = useRouter();
   // sorting state
@@ -63,14 +59,14 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
 
   const handleDelete = async ({ selected }: { selected: any }) => {
     try {
-      selected.map(async (user: { id: string }) => {
-        await fetch(`/api/user/${user.id}`, {
+      selected.map(async (question: any) => {
+        await fetch(`/api/question/${question.id}`, {
           method: "DELETE",
-        }).then((res) => res.json());
+        });
         toast({
           variant: "destructive",
-          title: "User deleted!",
-          description: `Users has been deleted.`,
+          title: "question deleted!",
+          description: `questions has been deleted.`,
         });
         router.refresh();
       });

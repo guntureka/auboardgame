@@ -8,8 +8,6 @@ import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer/footer";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "AU BOARD GAME",
   description: "Discover the captivating world of AU Board Game, where strategy meets excitement.",
@@ -18,13 +16,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Providers>
+          <Navbar />
           <Suspense fallback={<Loading />}>
-            <Navbar />
             <main className="container">{children}</main>
-            <Footer />
           </Suspense>
+          <Footer />
           <Toaster />
         </Providers>
       </body>

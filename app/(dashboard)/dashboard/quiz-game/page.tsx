@@ -2,10 +2,10 @@ import AddQuiz from "@/components/quiz/addQuiz";
 import { columns } from "@/components/quiz/columns";
 import { QuizDataTable } from "@/components/quiz/dataTable";
 import authOptions from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import React from "react";
 
-const getAllGame = async ({ id }: { id: string | null | undefined }) => {
+const getAllGame = async ({ id }: { id: string | null | undefined}) => {
   if (id === null) {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
       method: "GET",
@@ -33,10 +33,10 @@ const page = async () => {
   return (
     <div>
       <div className="text-center py-3 my-5">
-        <h1 className=" text-4xl font-bold">Game</h1>
+        <h1 className=" text-4xl font-bold">Quiz</h1>
       </div>
       <div>
-        <AddQuiz />
+        <AddQuiz session={session}/>
       </div>
       <div>
         <QuizDataTable data={data} columns={columns} />

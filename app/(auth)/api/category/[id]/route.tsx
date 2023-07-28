@@ -29,6 +29,18 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
 };
 
 export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+  const question = await prisma.question.findMany({
+    where: {
+      categoryId: params.id,
+    },
+  });
+
+  question.map(async (item) => {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/question/${item.id}`, {
+      method: "DELETE",
+    });
+  });
+
   const category = await prisma.category.delete({
     where: {
       id: params.id,

@@ -3,7 +3,15 @@ import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request, { params }: { params: { id: string } }) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findUnique({
+    where: {
+      id: params.id,
+    },
+    include: {
+      question: true,
+      quiz: true,
+    },
+  });
   return NextResponse.json(users, { status: 201 });
 };
 
@@ -69,6 +77,30 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
 };
 
 export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+  const quiz = await prisma.quiz.findMany({
+    where: {
+      userId: params.id,
+    },
+  });
+
+  quiz.map(async (item) => {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/quiz/${item.id}`, {
+      method: "DELETE",
+    });
+  });
+
+  const question = await prisma.question.findMany({
+    where: {
+      userId: params.id,
+    },
+  });
+
+  question.map(async (item) => {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/question/${item.id}`, {
+      method: "DELETE",
+    });
+  });
+
   const user = await prisma.user.delete({
     where: {
       id: params.id,

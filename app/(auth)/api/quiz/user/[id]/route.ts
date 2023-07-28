@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export const GET = async (request: Request, { params }: { params: { id: string } }) => {
   const quiz = await prisma.quiz.findMany({
     where: {
-      id: params.id,
+      userId: params.id,
     },
     include: {
       user: true,

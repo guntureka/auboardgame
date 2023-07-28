@@ -1,12 +1,13 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Question, Quiz } from "@prisma/client";
 //import type { User } from "@prisma/client";
 
 type User = {
   id: number;
   name: string;
-  game: [];
-  question: [];
+  quiz: Quiz[];
+  question: Question[];
 };
 
 const ActionCard = ({ props }: { props: User }) => {
@@ -23,11 +24,11 @@ const ActionCard = ({ props }: { props: User }) => {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Game</CardTitle>
+          <CardTitle>Quiz</CardTitle>
           <CardDescription>Game that has been created by {props.name}</CardDescription>
         </CardHeader>
         <CardContent>
-          <span>{props.game.length}</span>
+          <span>{props.quiz.length}</span>
         </CardContent>
       </Card>
     </div>
