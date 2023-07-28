@@ -3,7 +3,7 @@ import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({});
   return NextResponse.json(users, { status: 201 });
 };
 

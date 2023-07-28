@@ -1,9 +1,6 @@
 import React, { Suspense } from "react";
 import Loading from "./loading";
 import DashMenu from "@/components/dashboard/dashMenu";
-import { SessionProvider } from "next-auth/react";
-import Providers from "@/app/providers";
-
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <section>
