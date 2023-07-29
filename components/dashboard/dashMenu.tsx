@@ -24,7 +24,7 @@ const DashMenu = () => {
       ) : (
         <div className="hidden md:flex flex-col">
           {MenuProfile.dashboard.map((item, index) => {
-            if (item.title === "USER" || item.title === "CATEGORY") {
+            if (item.title === "USER" || item.title === "CATEGORY" || item.title === "PLAYER") {
               return null;
             }
             return (

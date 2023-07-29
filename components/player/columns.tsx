@@ -8,20 +8,20 @@ import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import type { Answer, Category, User, Player } from "@prisma/client";
-import EditGame from "./editGame";
-import AddPlayer from "../player/addPlayer";
+import type { Answer, Category, User, Quiz } from "@prisma/client";
+import EditPlayer from "./editPlayer";
 
-interface Quiz {
+export interface Player {
   id: string;
-  allQuestion: boolean;
-  quiz: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
-  user: User;
+  quiz: Quiz;
+  quizId: string;
+  score: number;
 }
 
-export const columns: ColumnDef<Quiz>[] = [
+export const columns: ColumnDef<Player>[] = [
   {
     id: "select",
     header: ({ table }) => <Checkbox checked={table.getIsAllRowsSelected()} onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all" />,
@@ -61,6 +61,28 @@ export const columns: ColumnDef<Quiz>[] = [
     },
   },
   {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
+          Player
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "score",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
+          Score
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: "quiz",
     header: ({ column }) => {
       return (
@@ -70,16 +92,9 @@ export const columns: ColumnDef<Quiz>[] = [
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "allQuestion",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
-          All Question
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    cell: ({ row }) => {
+      const quiz = row.original;
+      return <div>{quiz.quiz.quiz}</div>;
     },
   },
   {
@@ -93,39 +108,23 @@ export const columns: ColumnDef<Quiz>[] = [
       );
     },
   },
-  {
-    accessorKey: "user.name",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
-          User
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const user = row.original;
-      return <div>{user.user.name}</div>;
-    },
-    enableSorting: true,
-  },
 
   {
     id: "action",
     header: "Action",
     cell: ({ row }) => {
-      const quiz = row.original;
+      const player = row.original;
 
-      return <ActionQuiz quiz={quiz} />;
+      return <ActionPlayer player={player} />;
     },
   },
 ];
 
-const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
+const ActionPlayer = ({ player }: { player: Player }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const res = await fetch(`/api/game/${quiz.id}`, {
+    const res = await fetch(`/api/player/${player.id}`, {
       method: "DELETE",
     });
 
@@ -135,7 +134,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
         variant: "default",
         className: "bg-green-500",
         title: "Success",
-        description: `game deleted successfully`,
+        description: `player deleted successfully`,
       });
     } else {
       toast({
@@ -158,13 +157,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <EditGame quiz={quiz} />
-        <DropdownMenuSeparator />
-        <AddPlayer />
-        <DropdownMenuSeparator />
-        <Button variant={`ghost`} className="w-full" onClick={() => router.push(`/dashboard/quiz-game/${quiz.id}`)}>
-          Show player
-        </Button>
+        <EditPlayer player={player} />
         <DropdownMenuSeparator />
         <AlertDialog>
           <AlertDialogTrigger asChild>

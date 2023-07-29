@@ -36,7 +36,7 @@ const NavbarLeft = ({ session }: { session: any }) => {
             <SheetTitle>DASHBOARD</SheetTitle>
           </SheetHeader>
           {MenuProfile.dashboard.map((item, index) => {
-            if (item.title === "USER" || item.title === "CATEGORY") {
+            if (item.title === "USER" || item.title === "CATEGORY" || item.title === "PLAYER") {
               return null;
             }
             return (

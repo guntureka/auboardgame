@@ -64,22 +64,24 @@ model Answer {
 model Quiz {
   id          String   @id @default(cuid())
   quiz        String
-  player      Player[]
   user        User     @relation(fields: [userId], references: [id])
   userId      String
   allQuestion Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  player      Player[]
 
   @@index([userId])
 }
 
 model Player {
-  id     String @id @default(cuid())
-  name   String
-  score  Int    @default(0)
-  quiz   Quiz   @relation(fields: [quizId], references: [id])
-  quizId String
+  id        String   @id @default(cuid())
+  name      String
+  score     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  quizId    String
 
   @@index([quizId])
 }

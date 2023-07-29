@@ -1,7 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+
 export const GET = async (request: Request) => {
+
   const player = await prisma.player.findMany({
     include: {
       quiz: true,

@@ -126,6 +126,7 @@ const ActionMenu = ({ user }: { user: User }) => {
         title: "Success",
         description: `User deleted successfully`,
       });
+      return
     } else {
       toast({
         variant: "default",

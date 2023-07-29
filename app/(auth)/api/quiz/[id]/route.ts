@@ -28,6 +28,12 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
 };
 
 export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+  const player = await prisma.player.deleteMany({
+    where: {
+      quizId: params.id,
+    },
+  });
+
   const quiz = await prisma.quiz.delete({
     where: {
       id: params.id,
