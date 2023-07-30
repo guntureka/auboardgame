@@ -8,6 +8,7 @@ import { toast } from "@/components/ui/use-toast";
 const getAllQuestion = async ({ slug }: { slug: string }) => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/question/difficulty/${slug}`, {
     method: "GET",
+    cache: "no-cache",
   }).then((res) => res.json());
 
   return res;
