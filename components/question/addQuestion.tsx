@@ -19,7 +19,7 @@ import { Session } from "next-auth";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const AddQuestion = ({ session }: { session: Session | null}) => {
+const AddQuestion = ({ session }: { session: Session | null }) => {
   const router = useRouter();
   const [answers, setAnswers] = React.useState<string[]>(Array(5).fill(""));
   const [correct, setCorrect] = React.useState<string[]>(Array(5).fill(Boolean(false)));
@@ -30,7 +30,7 @@ const AddQuestion = ({ session }: { session: Session | null}) => {
     defaultValues: {
       difficulty: "easy",
       question: "",
-      category: "",
+      category: '',
       correct: correct,
       answer: answers,
     },
@@ -58,22 +58,21 @@ const AddQuestion = ({ session }: { session: Session | null}) => {
         }),
       });
 
-      if (res.ok) {
-        res.json().then((data) => {
-          {
-            answers.map(async (item, index) => {
-              const res = await fetch("/api/answer", {
-                method: "POST",
-                body: JSON.stringify({
-                  answer: form.getValues().answer[index],
-                  questionId: data.id,
-                  isCorrect: form.getValues().correct[index],
-                }),
-              });
-            });
-          }
-        });
-      }
+      const data = await res.json();
+
+      answers.map(async (item, index) => {
+        await fetch(`/api/answer`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            answer: form.getValues("answer")[index],
+            questionId: data.id,
+            isCorrect: form.getValues("correct")[index],
+          }),
+        }).then((res) => res.json());
+      });
       if (res.ok) {
         form.reset();
         router.refresh();
@@ -137,7 +136,7 @@ const AddQuestion = ({ session }: { session: Session | null}) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange}>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={"Select category"} />

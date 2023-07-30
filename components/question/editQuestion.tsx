@@ -50,9 +50,9 @@ const EditQuestion = ({ question }: { question: Question }) => {
   });
 
   const onSubmit = async () => {
-    console.log(form.getValues())
+    console.log(form.getValues());
     try {
-      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item === true).length < 2) {
+      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item === true).length < 1) {
         toast({
           title: "Error",
           variant: "destructive",
@@ -80,8 +80,8 @@ const EditQuestion = ({ question }: { question: Question }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            answer: form.getValues().answer[index],
-            isCorrect: form.getValues().correct[index],
+            answer: form.getValues("answer")[index],
+            isCorrect: form.getValues("correct")[index],
           }),
         }).then((res) => res.json());
       });
