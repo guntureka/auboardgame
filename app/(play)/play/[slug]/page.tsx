@@ -37,8 +37,8 @@ const page = async ({ params }: { params: { slug: string } }) => {
     });
   }
 
-  const question = questionFiltered[Math.floor(Math.random() * questionFiltered.length)];
 
+  const question = await questionFiltered[Math.floor(Math.random() * questionFiltered.length)];
   if (question === undefined || question === null) {
     return {
       notFound: true,
