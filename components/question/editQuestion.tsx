@@ -1,11 +1,30 @@
 "use client";
 
 import React from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { AiTwotoneStar } from "react-icons/ai";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
@@ -34,9 +53,17 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const EditQuestion = ({ question }: { question: Question }) => {
   const router = useRouter();
-  const { data: categories, error, isLoading } = useSWR(`/api/category`, fetcher);
-  const [answers, setAnswers] = React.useState<string[]>(question.answer.map((item) => item.answer));
-  const [correct, setCorrect] = React.useState<boolean[]>(question.answer.map((item) => item.isCorrect));
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useSWR(`/api/category`, fetcher);
+  const [answers, setAnswers] = React.useState<string[]>(
+    question.answer.map((item) => item.answer),
+  );
+  const [correct, setCorrect] = React.useState<boolean[]>(
+    question.answer.map((item) => item.isCorrect),
+  );
   const difficulty = ["easy", "medium", "hard", "expert", "master"];
 
   const form = useForm({
@@ -52,7 +79,11 @@ const EditQuestion = ({ question }: { question: Question }) => {
   const onSubmit = async () => {
     console.log(form.getValues());
     try {
-      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item === true).length < 1) {
+      if (
+        form.getValues().question === "" ||
+        form.getValues().answer.filter((item) => item === "").length > 0 ||
+        form.getValues().correct.filter((item) => item === true).length < 1
+      ) {
         toast({
           title: "Error",
           variant: "destructive",
@@ -61,7 +92,7 @@ const EditQuestion = ({ question }: { question: Question }) => {
         return;
       }
 
-      const res = await fetch(`/api/question/${question.id}`, {
+      await fetch(`/api/question/${question.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -109,14 +140,20 @@ const EditQuestion = ({ question }: { question: Question }) => {
         </DialogHeader>
         <ScrollArea className="h-96">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-3"
+            >
               <FormField
                 control={form.control}
                 name="difficulty"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Difficulty</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={"nasi Kuning"} />
@@ -126,9 +163,11 @@ const EditQuestion = ({ question }: { question: Question }) => {
                         {difficulty.map((item, index) => (
                           <SelectItem key={`difficulty-${index}`} value={item}>
                             <div className="flex" key={`div-${index}`}>
-                              {Array.from({ length: index + 1 }).map((_, idx) => (
-                                <AiTwotoneStar key={idx} />
-                              ))}
+                              {Array.from({ length: index + 1 }).map(
+                                (_, idx) => (
+                                  <AiTwotoneStar key={idx} />
+                                ),
+                              )}
                             </div>
                           </SelectItem>
                         ))}
@@ -145,7 +184,10 @@ const EditQuestion = ({ question }: { question: Question }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={field.value} />
@@ -156,14 +198,29 @@ const EditQuestion = ({ question }: { question: Question }) => {
                           (
                             item: {
                               id: string;
-                              category: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined;
+                              category:
+                                | string
+                                | number
+                                | boolean
+                                | React.ReactElement<
+                                    any,
+                                    string | React.JSXElementConstructor<any>
+                                  >
+                                | Iterable<React.ReactNode>
+                                | React.ReactPortal
+                                | React.PromiseLikeOfReactNode
+                                | null
+                                | undefined;
                             },
-                            index: any
+                            index: any,
                           ) => (
-                            <SelectItem key={`category-${index}`} value={item.id}>
+                            <SelectItem
+                              key={`category-${index}`}
+                              value={item.id}
+                            >
                               {item.category}
                             </SelectItem>
-                          )
+                          ),
                         )}
                       </SelectContent>
                     </Select>
@@ -209,7 +266,10 @@ const EditQuestion = ({ question }: { question: Question }) => {
                         <FormItem className="flex flex-col gap-3">
                           <FormLabel>Correct</FormLabel>
                           <FormControl className="mx-auto">
-                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
                           </FormControl>
                         </FormItem>
                       )}

@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request) => {
@@ -24,6 +23,7 @@ export const POST = async (request: Request) => {
   return NextResponse.json(question, { status: 201 });
 };
 
-export const DELETE = async (request: Request, { params }: { params: { slug: string } }) => {
-    
-}
+export const DELETE = async (
+  request: Request,
+  { params }: { params: { slug: string } },
+) => {};

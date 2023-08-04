@@ -1,20 +1,24 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { set, useForm } from "react-hook-form";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { User } from "@prisma/client";
 import { Button } from "../ui/button";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { Aladin, Allan } from "next/font/google";
 import { player } from "@/lib/menu";
 import Image from "next/image";
 import QrCodeScanner from "../qrcode/qrCodeScanner";
-import { getCookie, getCookies, setCookie } from "cookies-next";
+import { getCookies, setCookie } from "cookies-next";
 
 type Quiz = {
   id: string;
@@ -30,7 +34,11 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
   const [isOnClick, setIsOnClick] = useState(-1);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
-  const filteredQuiz = quiz.filter((quiz) => quiz.quiz.toLowerCase().includes(search.toLowerCase()) || quiz?.user?.username.toLowerCase().includes(search.toLowerCase()));
+  const filteredQuiz = quiz.filter(
+    (quiz) =>
+      quiz.quiz.toLowerCase().includes(search.toLowerCase()) ||
+      quiz?.user?.username.toLowerCase().includes(search.toLowerCase()),
+  );
   const form = useForm({
     defaultValues: {
       name: "",
@@ -39,7 +47,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
   });
 
   const allQuestion = (allQuestion: boolean) => {
-    if (allQuestion === true) {
+    if (allQuestion) {
       return "Semua pertanyaan yang tersedia";
     } else {
       return "Pertanyaan dari author";
@@ -71,7 +79,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
     form.setValue("character", character);
     setCookie("name", form.getValues("name"));
     setCookie("character", form.getValues("character"));
-    setCookie('score', 0)
+    setCookie("score", 0);
     setCurrentPage(currentPage + 1);
     console.log(getCookies());
     setQrcamera(true);
@@ -82,9 +90,16 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
       <div>
         <Button onClick={handlePrev}>Back</Button>
       </div>
-      <div className={`flex flex-col gap-5 ${currentPage === 1 ? "" : "hidden"}`}>
+      <div
+        className={`flex flex-col gap-5 ${currentPage === 1 ? "" : "hidden"}`}
+      >
         <div className="max-w-md">
-          <Input type="text" id="search" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
+          <Input
+            type="text"
+            id="search"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div>
           <Table>
@@ -105,7 +120,10 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                   <TableCell>{allQuestion(quiz.allQuestion)}</TableCell>
                   <TableCell>{quiz?.user?.username}</TableCell>
                   <TableCell>
-                    <Button type={`button`} onClick={() => handlePlay(quiz.id, quiz.allQuestion)}>
+                    <Button
+                      type={`button`}
+                      onClick={() => handlePlay(quiz.id, quiz.allQuestion)}
+                    >
                       Play!
                     </Button>
                   </TableCell>
@@ -115,7 +133,9 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
           </Table>
         </div>
       </div>
-      <div className={`flex flex-col gap-5 ${currentPage === 2 ? "" : "hidden"}`}>
+      <div
+        className={`flex flex-col gap-5 ${currentPage === 2 ? "" : "hidden"}`}
+      >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <FormField
@@ -145,10 +165,19 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                             variant={isOnClick === index ? "default" : "ghost"}
                             type="button"
                             className="w-full h-full flex flex-col items-center justify-center"
-                            onClick={() => [setIsOnClick(index), setCharacter(item.name)]}
+                            onClick={() => [
+                              setIsOnClick(index),
+                              setCharacter(item.name),
+                            ]}
                           >
                             {item.name}
-                            <Image {...field} src={item.img} alt="quiz" width={80} height={80} />
+                            <Image
+                              {...field}
+                              src={item.img}
+                              alt="quiz"
+                              width={80}
+                              height={80}
+                            />
                           </Button>
                         </div>
                       </FormControl>
@@ -163,13 +192,17 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
           </form>
         </Form>
       </div>
-      <div className={`flex flex-col gap-5 ${currentPage === 3 ? "" : "hidden"}`}>
+      <div
+        className={`flex flex-col gap-5 ${currentPage === 3 ? "" : "hidden"}`}
+      >
         {qrcamera ? (
           <div>
             <QrCodeScanner props={qrcamera} />
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center gap-5">null</div>
+          <div className="flex flex-col items-center justify-center gap-5">
+            null
+          </div>
         )}
       </div>
     </div>

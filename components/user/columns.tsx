@@ -3,16 +3,15 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getEnabledCategories } from "trace_events";
 import type { User } from "@prisma/client";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import ProfileCard from "../profile/profileCard";
 import EditUser from "./editUser";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -183,7 +182,7 @@ const ActionMenu = ({ user }: { user: User }) => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
-                  handleDelete();
+                  handleDelete().then(() => console.log('Delete') );
                 }}
                 className="bg-destructive hover:bg-destructive/90"
               >

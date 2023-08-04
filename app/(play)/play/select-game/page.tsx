@@ -1,20 +1,10 @@
 import SelectQuiz from "@/components/play/selectQuiz";
-import { User } from "@prisma/client";
 import React from "react";
 
-type Quiz = {
-  id: string;
-  quiz: string;
-  allQuestion: boolean;
-  user: User;
-};
-
 const getAllQuiz = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
+  return await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
     method: "GET",
   }).then((res) => res.json());
-
-  return res;
 };
 
 const SelectPage = async () => {

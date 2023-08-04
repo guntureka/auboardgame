@@ -1,8 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "next-auth/react";
@@ -11,7 +24,6 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Console } from "console";
 
 const LoginForm = () => {
   const { toast } = useToast();
@@ -91,7 +103,11 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} type="password" placeholder="Password..." />
+                    <Input
+                      {...field}
+                      type="password"
+                      placeholder="Password..."
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -104,7 +120,8 @@ const LoginForm = () => {
       </CardContent>
       <CardFooter className="flex flex-col gap-3">
         <p className="text-gray-400 text-sm">
-          <span className=" text-primary text-md">Forget password?</span> Please contact the Developer
+          <span className=" text-primary text-md">Forget password?</span> Please
+          contact the Developer
         </p>
         <p className="text-gray-400 text-sm">
           <span className=" text-primary text-md">Sign up?</span>

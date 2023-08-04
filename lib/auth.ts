@@ -31,7 +31,10 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        const isValid = await bcrypt.compare(credentials?.password, user?.password!);
+        const isValid = await bcrypt.compare(
+          credentials?.password,
+          user?.password!,
+        );
 
         if (user && isValid) {
           return user;
@@ -74,7 +77,7 @@ export const authOptions: NextAuthOptions = {
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn() {
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
         return true;

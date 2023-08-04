@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import Loading from "./loading";
-import DashMenu from "@/components/dashboard/dashMenu";
+
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <section>

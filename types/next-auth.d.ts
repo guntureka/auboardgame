@@ -1,5 +1,3 @@
-import { Session, User } from "next-auth";
-import { JWT } from "next-auth/jwt";
 import { User } from "@prisma/client";
 
 declare module "next-auth" {
@@ -20,5 +18,3 @@ declare module "next-auth/jwt" {
     score: number;
   }
 }
-
-//       };

@@ -1,12 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import type { Category, Answer, User } from "@prisma/client";
+import React from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import type { User } from "@prisma/client";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
 import { useSession } from "next-auth/react";
@@ -87,7 +106,10 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
           <DialogDescription>Edit new quiz</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-3"
+          >
             <FormField
               control={form.control}
               name="quiz"
@@ -106,7 +128,10 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Game</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value.toString()}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a Category" />

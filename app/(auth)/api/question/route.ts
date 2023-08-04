@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request) => {
@@ -8,7 +7,7 @@ export const GET = async (request: Request) => {
       answer: true,
       category: true,
       user: true,
-    }
+    },
   });
   return NextResponse.json(question, { status: 201 });
 };

@@ -1,8 +1,8 @@
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Suspense } from "react";
+
+import { ReactNode, Suspense } from "react";
 import Loading from "./loading";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,10 +10,11 @@ import Footer from "@/components/footer/footer";
 
 export const metadata: Metadata = {
   title: "AU BOARD GAME",
-  description: "Discover the captivating world of AU Board Game, where strategy meets excitement.",
+  description:
+    "Discover the captivating world of AU Board Game, where strategy meets excitement.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>

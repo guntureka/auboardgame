@@ -6,11 +6,9 @@ import { getServerSession } from "next-auth";
 import React from "react";
 
 const getAllCategory = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/category`, {
+  return await fetch(`${process.env.NEXTAUTH_URL}/api/category`, {
     method: "GET",
   }).then((res) => res.json());
-
-  return res;
 };
 
 const CategoryPage = async () => {

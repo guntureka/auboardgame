@@ -1,8 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
-export const GET = async (request: Request, { params }: { params: { username: string } }) => {
+export const GET = async (
+  request: Request,
+  { params }: { params: { username: string } },
+) => {
   const users = await prisma.user.findFirst({
     where: {
       username: params.username.toLowerCase().replace(" ", ""),

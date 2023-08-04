@@ -3,23 +3,21 @@ import { cookies } from "next/headers";
 import { Question } from "@prisma/client";
 import PlayQuiz from "@/components/play/playQuiz";
 import { redirect } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
 
 const getAllQuestion = async ({ slug }: { slug: string }) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/question/difficulty/${slug}`, {
-    method: "GET",
-    cache: "no-cache",
-  }).then((res) => res.json());
-
-  return res;
+  return await fetch(
+    `${process.env.NEXTAUTH_URL}/api/question/difficulty/${slug}`,
+    {
+      method: "GET",
+      cache: "no-cache",
+    },
+  ).then((res) => res.json());
 };
 
 const getQuiz = async ({ slug }: { slug: string | undefined }) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz/${slug}`, {
+  return await fetch(`${process.env.NEXTAUTH_URL}/api/quiz/${slug}`, {
     method: "GET",
   }).then((res) => res.json());
-
-  return res;
 };
 
 const page = async ({ params }: { params: { slug: string } }) => {
@@ -37,8 +35,9 @@ const page = async ({ params }: { params: { slug: string } }) => {
     });
   }
 
-
-  const question = await questionFiltered[Math.floor(Math.random() * questionFiltered.length)];
+  const question = await questionFiltered[
+    Math.floor(Math.random() * questionFiltered.length)
+  ];
   if (question === undefined || question === null) {
     return {
       notFound: true,

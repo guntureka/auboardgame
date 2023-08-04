@@ -5,11 +5,11 @@ export const Menubar = [
   },
   {
     title: "ABOUT US",
-    link: "/about",
+    link: "/about-us",
   },
   {
     title: "CONTACT US",
-    link: "/contact",
+    link: "/contact-us",
   },
   {
     title: "FAQ",

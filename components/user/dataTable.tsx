@@ -1,23 +1,58 @@
 "use client";
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, isRowSelected, SortingState, useReactTable, VisibilityState } from "@tanstack/react-table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from "@tanstack/react-table";
 import React from "react";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { User } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
+export const UserDataTable = <TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) => {
   const { data: session } = useSession();
   const role = session?.user?.role;
 
@@ -26,11 +61,14 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
   // sorting state
   const [sorting, setSorting] = React.useState<SortingState>([]);
   // Filtering state
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
   const [globalFilter, setGlobalFilter] = React.useState<string>(""); // Global filter state
   const [rowSelection, setRowSelection] = React.useState({});
   // Visibilty state
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
 
   const applyGlobalFilter = (value: string) => {
     setGlobalFilter(value);
@@ -82,7 +120,12 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
   return (
     <div className="relative">
       <div className="flex justify-between  items-center py-4">
-        <Input placeholder="Filter..." value={globalFilter} onChange={(event) => applyGlobalFilter(event.target.value)} className="max-w-sm mr-3" />
+        <Input
+          placeholder="Filter..."
+          value={globalFilter}
+          onChange={(event) => applyGlobalFilter(event.target.value)}
+          className="max-w-sm mr-3"
+        />
 
         <div className="flex gap-3">
           {table.getSelectedRowModel().rows.length !== 0 && (
@@ -93,13 +136,18 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</AlertDialogDescription>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => {
-                      const selectedRows = table.getSelectedRowModel().rows.map((row) => row.original);
+                      const selectedRows = table
+                        .getSelectedRowModel()
+                        .rows.map((row) => row.original);
                       handleDelete({ selected: selectedRows });
                     }}
                   >
@@ -122,7 +170,14 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
                 .map((column) => {
                   if (column.id === "actions") return false;
                   return (
-                    <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value) => column.toggleVisibility(!!value)}>
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(value)
+                      }
+                    >
                       {column.id}
                     </DropdownMenuCheckboxItem>
                   );
@@ -137,7 +192,14 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
-                  return <TableHead key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
+                  return (
+                    <TableHead key={header.id}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    </TableHead>
+                  );
                 })}
               </TableRow>
             ))}
@@ -145,15 +207,26 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -163,13 +236,24 @@ export const UserDataTable = <TData, TValue>({ columns, data }: DataTableProps<T
       </div>
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
-          <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
             Previous
           </Button>
-          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
             Next
           </Button>
         </div>

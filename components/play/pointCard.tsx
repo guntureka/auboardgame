@@ -2,8 +2,20 @@
 
 import { deleteCookie, getCookie, getCookies, setCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
@@ -56,8 +68,7 @@ const PointCard = () => {
     setQrcamera(false);
   };
 
-  const handleStop = async() => {
-
+  const handleStop = async () => {
     await fetch(`/api/player`, {
       method: "POST",
       headers: {
@@ -67,9 +78,9 @@ const PointCard = () => {
         name: cookies.name,
         score: points,
         quizId: cookies.quizId,
-      })
-    })
-  
+      }),
+    });
+
     deleteCookie("score", { path: "/" });
     deleteCookie("quizId", { path: "/" });
     deleteCookie("allQuestion", { path: "/" });
@@ -96,7 +107,10 @@ const PointCard = () => {
           </CardHeader>
           <CardContent className="flex flex-col gap-5">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handlePay)} className="flex flex-col gap-5">
+              <form
+                onSubmit={form.handleSubmit(handlePay)}
+                className="flex flex-col gap-5"
+              >
                 <FormField
                   control={form.control}
                   name="point"
@@ -115,7 +129,9 @@ const PointCard = () => {
               </form>
             </Form>
             <div className="flex gap-5">
-              <Button className="w-full" onClick={handleStop}>Berhenti</Button>
+              <Button className="w-full" onClick={handleStop}>
+                Berhenti
+              </Button>
               <Button className="w-full" onClick={handleNext}>
                 Lanjut
               </Button>
@@ -130,10 +146,12 @@ const PointCard = () => {
               <Button onClick={handlePrev} className="my-5">
                 Back
               </Button>
-              <QrCodeScanner props={qrcamera} />
+              <QrCodeScanner />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-5">null</div>
+            <div className="flex flex-col items-center justify-center gap-5">
+              null
+            </div>
           )}
         </div>
       </div>

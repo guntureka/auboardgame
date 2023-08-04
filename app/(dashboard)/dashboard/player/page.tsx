@@ -1,22 +1,24 @@
 import AddPlayer from "@/components/player/addPlayer";
-import { Player, columns } from "@/components/player/columns";
+import { columns, Player } from "@/components/player/columns";
 import { PlayerDataTable } from "@/components/player/dataTable";
 import authOptions from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const getAllPlayer = async ({ id }: { id: string | null | undefined }): Promise<Player[]> => {
+const getAllPlayer = async ({
+  id,
+}: {
+  id: string | null | undefined;
+}): Promise<Player[]> => {
   if (id === null) {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/player`, {
+    return await fetch(`${process.env.NEXTAUTH_URL}/api/player`, {
       method: "GET",
     }).then((res) => res.json());
-    return res;
   } else {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/player/quiz/${id}`, {
+    return await fetch(`${process.env.NEXTAUTH_URL}/api/player/quiz/${id}`, {
       method: "GET",
     }).then((res) => res.json());
-    return res;
   }
 };
 

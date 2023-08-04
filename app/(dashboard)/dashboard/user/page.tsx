@@ -7,10 +7,9 @@ import { getServerSession } from "next-auth/next";
 import React from "react";
 
 const getData = async (): Promise<User[]> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user`, {
+  return await fetch(`${process.env.NEXTAUTH_URL}/api/user`, {
     method: "GET",
   }).then((res) => res.json());
-  return res;
 };
 
 const UserPage = async () => {

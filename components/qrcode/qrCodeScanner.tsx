@@ -1,10 +1,10 @@
 "use client";
 
 import { Html5QrcodeScanner } from "html5-qrcode";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const QrCodeScanner = ({ props }: { props: boolean }) => {
+const QrCodeScanner = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const QrCodeScanner = ({ props }: { props: boolean }) => {
         fps: 20,
         qrbox: 250,
       },
-      false
+      false,
     );
 
     scanner.render(
@@ -27,7 +27,7 @@ const QrCodeScanner = ({ props }: { props: boolean }) => {
       (error) => {
         console.log(error);
         return <div>error</div>;
-      }
+      },
     );
 
     return () => {
@@ -37,11 +37,10 @@ const QrCodeScanner = ({ props }: { props: boolean }) => {
 
   return (
     <div className="max-w-md mx-auto">
-        <h1>Scan QR Code</h1>
-        <div id={`reader`} className="min-h-[300px]">
-        </div>
+      <h1>Scan QR Code</h1>
+      <div id={`reader`} className="min-h-[300px]"></div>
     </div>
-  )
+  );
 };
 
 export default QrCodeScanner;

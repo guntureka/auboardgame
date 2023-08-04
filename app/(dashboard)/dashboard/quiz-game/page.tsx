@@ -2,20 +2,18 @@ import AddQuiz from "@/components/quiz/addQuiz";
 import { columns } from "@/components/quiz/columns";
 import { QuizDataTable } from "@/components/quiz/dataTable";
 import authOptions from "@/lib/auth";
-import { Session, getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import React from "react";
 
-const getAllGame = async ({ id }: { id: string | null | undefined}) => {
+const getAllGame = async ({ id }: { id: string | null | undefined }) => {
   if (id === null) {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
+    return await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
       method: "GET",
     }).then((res) => res.json());
-    return res;
   } else {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/quiz/user/${id}`, {
+    return await fetch(`${process.env.NEXTAUTH_URL}/api/quiz/user/${id}`, {
       method: "GET",
     }).then((res) => res.json());
-    return res;
   }
 };
 
@@ -36,7 +34,7 @@ const page = async () => {
         <h1 className=" text-4xl font-bold">Quiz</h1>
       </div>
       <div>
-        <AddQuiz session={session}/>
+        <AddQuiz session={session} />
       </div>
       <div>
         <QuizDataTable data={data} columns={columns} />
