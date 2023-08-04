@@ -7,7 +7,9 @@ import Loading from "./loading";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer/footer";
+import { Poppins } from "next/font/google";
 
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "AU BOARD GAME",
   description:
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className={poppins.className}>
         <Providers>
           <Navbar />
           <Suspense fallback={<Loading />}>
