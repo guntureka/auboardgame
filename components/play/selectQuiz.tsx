@@ -54,10 +54,6 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
     }
   };
 
-  const handleNext = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
   const handlePrev = () => {
     setCurrentPage(currentPage - 1);
     setQrcamera(false);
@@ -67,7 +63,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
     if (currentPage === 0) {
       router.push(`/play`);
     }
-  }, [currentPage]);
+  }, [currentPage, router]);
 
   const handlePlay = (quizId: string, allQuestion: boolean) => {
     setCookie("quizId", quizId);
@@ -197,7 +193,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
       >
         {qrcamera ? (
           <div>
-            <QrCodeScanner props={qrcamera} />
+            <QrCodeScanner />
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center gap-5">
