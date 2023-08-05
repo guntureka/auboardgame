@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Page = () => {
   return (
-    <div className={"flex flex-col gap-10 md:p-14 p-5"}>
+    <div className={"flex flex-col gap-10 p-5"}>
       <div className={"flex flex-col gap-10 text-center"}>
         <h1 className={"text-4xl font-bold"}>
           Selamat Datang di Website Resmi AU Board Game
@@ -16,7 +16,11 @@ const Page = () => {
           kami menciptakan board game yang menggabungkan keduanya.
         </p>
       </div>
-      <div className={"flex flex-row gap-5 justify-center items-center"}>
+      <div
+        className={
+          "flex flex-row gap-5 justify-center items-center border-2 border-blue-400 shadow rounded-xl p-5 bg-blue-400"
+        }
+      >
         <Image
           src={"/images/misi.png"}
           width={250}
@@ -32,7 +36,11 @@ const Page = () => {
           </p>
         </div>
       </div>
-      <div className={"flex flex-row gap-5 justify-center items-center"}>
+      <div
+        className={
+          "flex flex-row gap-5 justify-center items-center border-2 border-red-400 p-5 shadow rounded-xl bg-red-400"
+        }
+      >
         <div>
           <h1 className={"text-3xl font-bold"}>Visi Kami</h1>
           <p>
