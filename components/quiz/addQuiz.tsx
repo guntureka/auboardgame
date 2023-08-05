@@ -98,18 +98,6 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
           >
             <FormField
               control={form.control}
-              name="quiz"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Game</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Game name..." />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="allQuestion"
               render={({ field }) => (
                 <FormItem>
@@ -131,6 +119,19 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="quiz"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Game</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Game name..." />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
             <Button type="submit" className="w-full">
               <span>Add Game</span>
             </Button>

@@ -63,7 +63,7 @@ const PointCard = () => {
       });
       return;
     }
-    setCookie("properties", properties + score);
+    setCookie("properties", properties + Number(form.getValues("point")));
     setProperties(properties + score);
     setCookie("score", score);
     setScore(score);
@@ -86,10 +86,10 @@ const PointCard = () => {
       });
       return;
     }
-    setCookie("score", scores + form.getValues().point);
-    setScore(scores + form.getValues().point);
-    setCookie("properties", properties - form.getValues().point);
-    setProperties(properties - form.getValues().point);
+    setCookie("score", scores + Number(form.getValues().point));
+    setScore(scores + Number(form.getValues("point")));
+    setProperties(properties - Number(form.getValues().point));
+    setCookie("properties", properties - Number(form.getValues().point));
   };
 
   const handleStop = async () => {
@@ -165,15 +165,15 @@ const PointCard = () => {
                   )}
                 />
                 <div className={`flex gap-5`}>
-                  <Button type={"button"} className="w-full" onClick={() => {}}>
-                    Jual
-                  </Button>
-
                   <Button
-                    type="submit"
+                    type={"button"}
                     className="w-full"
                     onClick={() => handleJual()}
                   >
+                    Jual
+                  </Button>
+
+                  <Button type="submit" className="w-full">
                     Belanja
                   </Button>
                 </div>
