@@ -74,19 +74,19 @@ export const MenuProfile = {
 export const player = [
   {
     name: "Andra",
-    img: "/images/logo.png",
+    img: "/images/andra.png",
   },
   {
-    name: "Budi",
-    img: "/images/logo.png",
-  },
-  {
-    name: "Caca",
-    img: "/images/logo.png",
+    name: "Nataya",
+    img: "/images/nataya.png",
   },
   {
     name: "Euis",
-    img: "/images/logo.png",
+    img: "/images/euis.png",
+  },
+  {
+    name: "Tatang",
+    img: "/images/tatang.png",
   },
 ];
 

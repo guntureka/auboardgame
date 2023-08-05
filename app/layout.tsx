@@ -28,7 +28,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Suspense fallback={<Loading />}>
             <main className="container">{children}</main>
           </Suspense>
-          z
           <Footer />
           <Toaster />
         </Providers>

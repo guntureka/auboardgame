@@ -19,6 +19,7 @@ import { player } from "@/lib/menu";
 import Image from "next/image";
 import QrCodeScanner from "../qrcode/qrCodeScanner";
 import { getCookies, setCookie } from "cookies-next";
+import { toast } from "@/components/ui/use-toast";
 
 type Quiz = {
   id: string;
@@ -72,6 +73,14 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
   };
 
   const handleSubmit = () => {
+    if (form.getValues("name") === "") {
+      toast({
+        title: "Isi nama kamu",
+        variant: "destructive",
+        description: "Kamu harus mengisi nama kamu",
+      });
+      return;
+    }
     form.setValue("character", character);
     setCookie("name", form.getValues("name"));
     setCookie("character", form.getValues("character"));
@@ -133,13 +142,16 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
         className={`flex flex-col gap-5 ${currentPage === 2 ? "" : "hidden"}`}
       >
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className={`flex flex-col gap-10`}
+          >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
+                <FormItem className={"text-center"}>
+                  <FormLabel>Nama</FormLabel>
                   <FormControl className="max-w-md">
                     <Input {...field} type="text" placeholder="Namamu..." />
                   </FormControl>
@@ -150,23 +162,33 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
               control={form.control}
               name="character"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Character</FormLabel>
+                <FormItem className={"text-center"}>
+                  <FormLabel
+                    className={"font-bold text-center text-yellow-400"}
+                  >
+                    Pilih karakter kamu !
+                  </FormLabel>
                   <div className={`grid grid-cols-2 gap-5`}>
                     {player.map((item, index) => (
                       <FormControl key={index}>
                         <div className="flex flex-col items-center justify-center gap-5">
                           <Button
                             {...field}
-                            variant={isOnClick === index ? "default" : "ghost"}
+                            variant={"outline"}
                             type="button"
-                            className="w-full h-full flex flex-col items-center justify-center"
+                            className={`w-full h-full flex flex-col items-center rounded-xl justify-center ${
+                              isOnClick === index
+                                ? "bg-green-300"
+                                : "bg-green-200"
+                            } hover:bg-green-300`}
                             onClick={() => [
                               setIsOnClick(index),
                               setCharacter(item.name),
                             ]}
                           >
-                            {item.name}
+                            <span className={`text-red-600 font-bold`}>
+                              {item.name}
+                            </span>
                             <Image
                               {...field}
                               src={item.img}
@@ -182,7 +204,10 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                 </FormItem>
               )}
             />
-            <Button className=" w-[250px] flex mx-auto mt-5" type="submit">
+            <Button
+              className=" w-[250px] flex mx-auto mt-5 rounded-full bg-red-500"
+              type="submit"
+            >
               Done
             </Button>
           </form>
