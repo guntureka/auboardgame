@@ -32,6 +32,7 @@ const PointCard = () => {
   const [qrcamera, setQrcamera] = useState(false);
   const [scores, setScore] = useState(0);
   const [properties, setProperties] = useState(0);
+  const [name, setName] = useState("");
   useEffect(() => {
     if (!cookies) {
       router.push("/play");
@@ -39,10 +40,12 @@ const PointCard = () => {
       const point = Number(getCookie("point"));
       const property = Number(getCookie("properties"));
       const savedScore = Number(getCookie("score"));
+      const name = String(getCookie("name"));
       if (!isNaN(savedScore) || !isNaN(point) || !isNaN(property)) {
         setPoints(point);
         setScore(savedScore);
         setProperties(property);
+        setName(name);
       }
     }
   }, [cookies, router]);
@@ -99,7 +102,7 @@ const PointCard = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: cookies.name,
+        name: name,
         score: points,
         quizId: cookies.quizId,
       }),
