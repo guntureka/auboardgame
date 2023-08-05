@@ -35,7 +35,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const AddPlayer = () => {
   const router = useRouter();
-  const { data, error, isLoading } = useSWR(`/api/quiz`, fetcher);
+  const { data } = useSWR(`/api/quiz`, fetcher);
 
   const form = useForm({
     defaultValues: {

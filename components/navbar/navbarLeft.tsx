@@ -13,7 +13,6 @@ import {
 import { BiBookOpen } from "react-icons/bi";
 import { MenuProfile } from "@/lib/menu";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const NavbarLeft = ({ session }: { session: any }) => {
   const admin = session?.user.role === "admin";

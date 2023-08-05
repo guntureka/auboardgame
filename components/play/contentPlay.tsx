@@ -22,10 +22,6 @@ const ContentPlay = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  const handlePrev = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
   const handleNewQuiz = () => {
     if (!session) {
       toast({

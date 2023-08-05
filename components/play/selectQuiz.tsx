@@ -85,9 +85,16 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
     setCookie("name", form.getValues("name"));
     setCookie("character", form.getValues("character"));
     setCookie("score", 0);
+    setCookie("point", 0);
+    setCookie("properties", 0);
     setCurrentPage(currentPage + 1);
     console.log(getCookies());
     setQrcamera(true);
+  };
+
+  const buttonClick = (index: number, item: string) => {
+    setIsOnClick(index);
+    setCharacter(item);
   };
 
   return (
@@ -181,10 +188,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                                 ? "bg-green-300"
                                 : "bg-green-200"
                             } hover:bg-green-300`}
-                            onClick={() => [
-                              setIsOnClick(index),
-                              setCharacter(item.name),
-                            ]}
+                            onClick={() => buttonClick(index, item.name)}
                           >
                             <span className={`text-red-600 font-bold`}>
                               {item.name}

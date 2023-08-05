@@ -9,33 +9,40 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
 import QrCodeScanner from "../qrcode/qrCodeScanner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const PointCard = () => {
   const router = useRouter();
   const cookies = getCookies();
   const [points, setPoints] = useState(0);
   const [qrcamera, setQrcamera] = useState(false);
-
+  const [scores, setScore] = useState(0);
+  const [properties, setProperties] = useState(0);
   useEffect(() => {
     if (!cookies) {
       router.push("/play");
     } else {
+      const point = Number(getCookie("point"));
+      const property = Number(getCookie("properties"));
       const savedScore = Number(getCookie("score"));
-      if (!isNaN(savedScore)) {
-        setPoints(savedScore);
+      if (!isNaN(savedScore) || !isNaN(point) || !isNaN(property)) {
+        setPoints(point);
+        setScore(savedScore);
+        setProperties(property);
       }
     }
   }, [cookies, router]);
@@ -47,7 +54,7 @@ const PointCard = () => {
   });
 
   const handlePay = () => {
-    const score = points - Number(form.getValues("point"));
+    const score = scores - Number(form.getValues("point"));
     if (score < 0) {
       toast({
         title: "Point tidak cukup",
@@ -56,8 +63,10 @@ const PointCard = () => {
       });
       return;
     }
+    setCookie("properties", properties + score);
+    setProperties(properties + score);
     setCookie("score", score);
-    setPoints(score);
+    setScore(score);
   };
 
   const handleNext = () => {
@@ -82,6 +91,8 @@ const PointCard = () => {
     });
 
     deleteCookie("score", { path: "/" });
+    deleteCookie("point", { path: "/" });
+    deleteCookie("properties", { path: "/" });
     deleteCookie("quizId", { path: "/" });
     deleteCookie("allQuestion", { path: "/" });
     deleteCookie("character", { path: "/" });
@@ -103,9 +114,24 @@ const PointCard = () => {
         <Card>
           <CardHeader>
             <CardTitle>Point Card</CardTitle>
-            <CardDescription>{`${points} point`}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-5">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Point</TableHead>
+                  <TableHead>Properties</TableHead>
+                  <TableHead>Score</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{points}</TableCell>
+                  <TableCell>{properties}</TableCell>
+                  <TableCell>{scores}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handlePay)}
@@ -123,16 +149,30 @@ const PointCard = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  Belanja
-                </Button>
+                <div className={`flex gap-5`}>
+                  <Button type={"button"} className="w-full" onClick={() => {}}>
+                    Jual
+                  </Button>
+
+                  <Button type="submit" className="w-full">
+                    Belanja
+                  </Button>
+                </div>
               </form>
             </Form>
             <div className="flex gap-5">
-              <Button className="w-full" onClick={handleStop}>
+              <Button
+                className="w-full"
+                variant={"destructive"}
+                onClick={handleStop}
+              >
                 Berhenti
               </Button>
-              <Button className="w-full" onClick={handleNext}>
+              <Button
+                className="w-full"
+                variant={"default"}
+                onClick={handleNext}
+              >
                 Lanjut
               </Button>
             </div>

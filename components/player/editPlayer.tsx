@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Player } from "./columns";
 import useSWR from "swr";
@@ -37,8 +36,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const EditPlayer = ({ player }: { player: Player }) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR(`/api/quiz`, fetcher);
+  const { data } = useSWR(`/api/quiz`, fetcher);
 
   const form = useForm({
     defaultValues: {

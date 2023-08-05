@@ -47,14 +47,12 @@ export const colors = [
 const PlayQuiz = ({ questions }: { questions: Question }) => {
   const router = useRouter();
   const [isOnClicked, setIsOnClicked] = useState(false);
-  const [answerData, setAnswerData] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [questionData, setQuestionData] = useState([]);
   const [time, setTime] = useState(100);
   const [scores, setScores] = useState(0);
-  const [page, setPage] = useState(1);
+  const [point, setPoint] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
       setTime((prev) => prev - 10);
@@ -78,8 +76,10 @@ const PlayQuiz = ({ questions }: { questions: Question }) => {
 
   useEffect(() => {
     const savedScore = Number(getCookie("score"));
-    if (!isNaN(savedScore)) {
+    const point = Number(getCookie("point"));
+    if (!isNaN(savedScore) || !isNaN(point)) {
       setScores(savedScore);
+      setPoint(point);
     }
   }, []);
 
@@ -88,12 +88,12 @@ const PlayQuiz = ({ questions }: { questions: Question }) => {
       if (item.difficulty === difficulty) {
         setScores(scores + item.score);
         setCookie("score", scores + item.score);
+        setCookie("point", point + item.score);
       }
     });
   };
-  const handleClick = (props: string, idx: number, correct: boolean) => {
+  const handleClick = (idx: number, correct: boolean) => {
     setIsOnClicked(!isOnClicked);
-    setAnswerData(props);
     setSelectedAnswerIndex(idx);
     if (correct) {
       setIsCorrect(true);
@@ -152,9 +152,7 @@ const PlayQuiz = ({ questions }: { questions: Question }) => {
                     ? "bg-primary hover:bg-primary text-white"
                     : ""
                 }`}
-                onClick={() =>
-                  handleClick(answer.answer, index, answer.isCorrect)
-                }
+                onClick={() => handleClick(index, answer.isCorrect)}
                 {...props}
               >
                 {answer.answer}
