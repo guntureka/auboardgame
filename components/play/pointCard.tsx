@@ -77,6 +77,21 @@ const PointCard = () => {
     setQrcamera(false);
   };
 
+  const handleJual = () => {
+    if (form.getValues().point > properties) {
+      toast({
+        title: "Point tidak cukup",
+        variant: "destructive",
+        description: "Point anda tidak cukup untuk membeli rumah",
+      });
+      return;
+    }
+    setCookie("score", scores + form.getValues().point);
+    setScore(scores + form.getValues().point);
+    setCookie("properties", properties - form.getValues().point);
+    setProperties(properties - form.getValues().point);
+  };
+
   const handleStop = async () => {
     await fetch(`/api/player`, {
       method: "POST",
