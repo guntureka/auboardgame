@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "AU BOARD GAME",
   description:
     "Discover the captivating world of AU Board Game, where strategy meets excitement.",
+  icons: {
+    icon: "/logo.ico",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -25,6 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Suspense fallback={<Loading />}>
             <main className="container">{children}</main>
           </Suspense>
+          z
           <Footer />
           <Toaster />
         </Providers>
