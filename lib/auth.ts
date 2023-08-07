@@ -3,6 +3,7 @@ import { prisma } from "./prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -11,7 +12,6 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/signin",
-    error: "/signin",
     signOut: "/",
   },
   providers: [
@@ -77,12 +77,11 @@ export const authOptions: NextAuthOptions = {
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },
-    async signIn() {
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
+    async signIn({ user, credentials, email, profile, account }) {
+      if (!user || !credentials || !profile) {
+        return redirect("/login");
       }
-      return "/signin";
+      return true;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

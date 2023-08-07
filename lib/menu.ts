@@ -54,7 +54,7 @@ export const MenuProfile = {
   support: [
     {
       title: "CONTACT US",
-      link: "/contact",
+      link: "/contact-us",
     },
     {
       title: "PRIVACY POLICY",
@@ -104,11 +104,11 @@ export const score = [
     score: 30,
   },
   {
-    difficulty: "extreme",
+    difficulty: "expert",
     score: 40,
   },
   {
-    difficulty: "impossible",
+    difficulty: "master",
     score: 50,
   },
 ];

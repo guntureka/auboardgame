@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Page = () => {
   return (
-    <div className={"flex flex-col gap-10 p-5 md:p-14 text-center"}>
+    <div className={"flex flex-col gap-10 p-5 text-center"}>
       <h1 className={"font-bold text-4xl"}>
         <span className={"text-red-500"}>Kontak </span>
         Kami
