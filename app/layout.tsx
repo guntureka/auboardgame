@@ -8,6 +8,7 @@ import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer/footer";
 import { Poppins } from "next/font/google";
+import ThemeProviders from "@/components/theme-providers";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -24,12 +25,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={poppins.className}>
         <Providers>
-          <Navbar />
-          <Suspense fallback={<Loading />}>
-            <main className="container">{children}</main>
-          </Suspense>
-          <Footer />
-          <Toaster />
+          <ThemeProviders attribute={"class"}>
+            <Suspense fallback={<Loading />}>
+              <Navbar />
+              <main className="container">{children}</main>
+              <Footer />
+              <Toaster />
+            </Suspense>
+          </ThemeProviders>
         </Providers>
       </body>
     </html>

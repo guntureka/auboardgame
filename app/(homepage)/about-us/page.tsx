@@ -1,20 +1,81 @@
 import React from "react";
 import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { team } from "@/lib/menu";
 
 const Page = () => {
   return (
     <div className={"flex flex-col gap-10 p-5"}>
-      <div className={"flex flex-col gap-10 text-center"}>
-        <h1 className={"text-4xl font-bold"}>
-          Selamat Datang di Website Resmi AU Board Game
-        </h1>
-        <p className={"text-center"}>
-          Kami adalah tim penuh semangat yang berdedikasi untuk menghadirkan
-          pengalaman bermain yang edukatif dan mendebarkan bagi semua orang. D
-          sini, kami mempercayai bahwa belajar harus menjadi petualangan yang
-          menyenangkan, dan dengan cinta kami terhadap permainan dan pendidikan,
-          kami menciptakan board game yang menggabungkan keduanya.
-        </p>
+      <div className={"flex flex-col gap-10 text-center justify-center"}>
+        <h1 className={"text-4xl font-bold"}>WHO WE ARE?</h1>
+        <div className={"flex flex-col gap-5 items-center justify-center"}>
+          <Card
+            className={`w-full md:max-w-[350px] h-[400px] text-center flex flex-col justify-center`}
+          >
+            <CardHeader>
+              <CardTitle>{team.mentor.title}</CardTitle>
+            </CardHeader>
+            <CardContent className={"flex items-center justify-center"}>
+              <img
+                src={team.mentor.img}
+                alt={team.mentor.name}
+                className={"h-[200px] w-[150px]"}
+              />
+            </CardContent>
+            <CardFooter className={"flex justify-center"}>
+              <h1 className={"text-center"}>{team.mentor.name}</h1>
+            </CardFooter>
+          </Card>
+          <Card
+            className={`w-full md:max-w-[350px] h-[400px] text-center flex flex-col justify-center`}
+          >
+            <CardHeader>
+              <CardTitle>{team.chairman.title}</CardTitle>
+            </CardHeader>
+            <CardContent className={"flex items-center justify-center"}>
+              <img
+                src={team.chairman.img}
+                alt={team.chairman.name}
+                className={"h-[200px] w-[150px]"}
+              />
+            </CardContent>
+            <CardFooter className={"flex justify-center"}>
+              <h1 className={"text-center"}>{team.chairman.name}</h1>
+            </CardFooter>
+          </Card>
+          <div
+            className={
+              "grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-5 w-full text-center"
+            }
+          >
+            {team.team.map((item, index) => (
+              <Card
+                className={`w-full h-[400px] text-center flex flex-col justify-center`}
+                key={index}
+              >
+                <CardHeader>
+                  <CardTitle>{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent className={"flex items-center justify-center"}>
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className={"h-[200px] max-w-[150px]"}
+                  />
+                </CardContent>
+                <CardFooter className={"flex justify-center"}>
+                  <h1 className={"text-center"}>{item.name}</h1>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
       <div
         className={

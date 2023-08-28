@@ -183,3 +183,38 @@ export const faq = [
     answer: "Di official market place kami yaitu Shopee @auboardgame_hybrid",
   },
 ];
+
+export const team = {
+  mentor: {
+    name: "Dr.R Ratna Meisa Dai S.Sos, M.Si",
+    title: "Mentor",
+    img: "/images/mentor.png",
+  },
+  chairman: {
+    name: "Silfi Khoirunnisa",
+    title: "Team leader and Social Media Manager",
+    img: "/images/silfi.png",
+  },
+  team: [
+    {
+      name: "Qotrunnada Shafiyatuzzahra",
+      title: "Design Manager",
+      img: "/images/qotrunnada.png",
+    },
+    {
+      name: "Rosy Rahmadhani",
+      title: "Financial Manager",
+      img: "/images/rosy.png",
+    },
+    {
+      name: "Syafa Firdauza Adzani",
+      title: "Production Manager",
+      img: "/images/syafa.png",
+    },
+    {
+      name: "Guntur Eka Putra",
+      title: "Technology Manager",
+      img: "/images/guntur.png",
+    },
+  ],
+};
