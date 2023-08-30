@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { User } from "@prisma/client";
@@ -18,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { player } from "@/lib/menu";
 import Image from "next/image";
 import QrCodeScanner from "../qrcode/qrCodeScanner";
-import { getCookies, setCookie } from "cookies-next";
+import { deleteCookie, getCookies, setCookie } from "cookies-next";
 import { toast } from "@/components/ui/use-toast";
 
 type Quiz = {
@@ -35,11 +28,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
   const [isOnClick, setIsOnClick] = useState(-1);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
-  const filteredQuiz = quiz.filter(
-    (quiz) =>
-      quiz.quiz.toLowerCase().includes(search.toLowerCase()) ||
-      quiz?.user?.username.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredQuiz = quiz.filter((quiz) => quiz.quiz.toLowerCase().includes(search.toLowerCase()) || quiz?.user?.username.toLowerCase().includes(search.toLowerCase()));
   const form = useForm({
     defaultValues: {
       name: "",
@@ -102,16 +91,9 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
       <div>
         <Button onClick={handlePrev}>Back</Button>
       </div>
-      <div
-        className={`flex flex-col gap-5 ${currentPage === 1 ? "" : "hidden"}`}
-      >
+      <div className={`flex flex-col gap-5 ${currentPage === 1 ? "" : "hidden"}`}>
         <div className="max-w-md">
-          <Input
-            type="text"
-            id="search"
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <Input type="text" id="search" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
         </div>
         <div>
           <Table>
@@ -132,10 +114,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                   <TableCell>{allQuestion(quiz.allQuestion)}</TableCell>
                   <TableCell>{quiz?.user?.username}</TableCell>
                   <TableCell>
-                    <Button
-                      type={`button`}
-                      onClick={() => handlePlay(quiz.id, quiz.allQuestion)}
-                    >
+                    <Button type={`button`} onClick={() => handlePlay(quiz.id, quiz.allQuestion)}>
                       Play!
                     </Button>
                   </TableCell>
@@ -145,14 +124,9 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
           </Table>
         </div>
       </div>
-      <div
-        className={`flex flex-col gap-5 ${currentPage === 2 ? "" : "hidden"}`}
-      >
+      <div className={`flex flex-col gap-5 ${currentPage === 2 ? "" : "hidden"}`}>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className={`flex flex-col gap-10`}
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className={`flex flex-col gap-10`}>
             <FormField
               control={form.control}
               name="name"
@@ -170,11 +144,7 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
               name="character"
               render={({ field }) => (
                 <FormItem className={"text-center"}>
-                  <FormLabel
-                    className={"font-bold text-center text-yellow-400"}
-                  >
-                    Pilih karakter kamu !
-                  </FormLabel>
+                  <FormLabel className={"font-bold text-center text-yellow-400"}>Pilih karakter kamu !</FormLabel>
                   <div className={`grid grid-cols-2 gap-5`}>
                     {player.map((item, index) => (
                       <FormControl key={index}>
@@ -183,23 +153,11 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                             {...field}
                             variant={"outline"}
                             type="button"
-                            className={`w-full h-full flex flex-col items-center rounded-xl justify-center ${
-                              isOnClick === index
-                                ? "bg-green-300"
-                                : "bg-green-200"
-                            } hover:bg-green-300`}
+                            className={`w-full h-full flex flex-col items-center rounded-xl justify-center ${isOnClick === index ? "bg-green-300" : "bg-green-200"} hover:bg-green-300`}
                             onClick={() => buttonClick(index, item.name)}
                           >
-                            <span className={`text-red-600 font-bold`}>
-                              {item.name}
-                            </span>
-                            <Image
-                              {...field}
-                              src={item.img}
-                              alt="quiz"
-                              width={80}
-                              height={80}
-                            />
+                            <span className={`text-red-600 font-bold`}>{item.name}</span>
+                            <Image {...field} src={item.img} alt="quiz" width={80} height={80} />
                           </Button>
                         </div>
                       </FormControl>
@@ -208,26 +166,19 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
                 </FormItem>
               )}
             />
-            <Button
-              className=" w-[250px] flex mx-auto mt-5 rounded-full bg-red-500"
-              type="submit"
-            >
+            <Button className=" w-[250px] flex mx-auto mt-5 rounded-full bg-red-500" type="submit">
               Done
             </Button>
           </form>
         </Form>
       </div>
-      <div
-        className={`flex flex-col gap-5 ${currentPage === 3 ? "" : "hidden"}`}
-      >
+      <div className={`flex flex-col gap-5 ${currentPage === 3 ? "" : "hidden"}`}>
         {qrcamera ? (
           <div>
             <QrCodeScanner />
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center gap-5">
-            null
-          </div>
+          <div className="flex flex-col items-center justify-center gap-5">null</div>
         )}
       </div>
     </div>
