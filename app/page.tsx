@@ -5,8 +5,10 @@ import Image from "next/image";
 import { FiBook } from "react-icons/fi";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { FaFortAwesome } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const route = useRouter();
   return (
     <div>
       <div className="grid md:grid-cols-2 grid-cols-1">
@@ -20,7 +22,7 @@ export default function Home() {
       </div>
       <div className="flex flex-col gap-5 justify-center items-center py-10">
         <h1 className="font-bold text-4xl text-center">
-          WHT IS <span className="text-red-500">AU BOARD GAME</span>?
+          WHAT IS <span className="text-red-500">AU BOARD GAME</span>?
         </h1>
         <p className="text-justify">
           Discover the captivating world of AU Board Game, where strategy meets excitement. Immerse yourself in an engaging and interactive gaming experience that challenges your intellect and decision-making skills. Explore a myriad of
@@ -28,7 +30,7 @@ export default function Home() {
           Unleash your competitive spirit and embark on an adventure that will keep you hooked from the very first roll of the dice.
         </p>
         <div className="flex items-center">
-          <Button variant={"destructive"} className={"rounded-full"}>
+          <Button variant={"destructive"} className={"rounded-full"} onClick={() => route.push("/about-us")}>
             Learn more
           </Button>
         </div>
@@ -44,7 +46,7 @@ export default function Home() {
             </div>
             <h1 className="font-bold text-2xl h-[60px]">PLAYING GUIDE</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"} className="rounded-2xl border-primary">
+            <Button variant={"outline"} className="rounded-2xl border-primary" onClick={() => route.push("/playing-guide")}>
               View more
             </Button>
           </div>
@@ -54,7 +56,7 @@ export default function Home() {
             </div>
             <h1 className="font-bold text-2xl h-[60px]">QUESTION</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"} className="rounded-2xl border-primary">
+            <Button variant={"outline"} className="rounded-2xl border-primary" onClick={() => route.push("/faq")}>
               View more
             </Button>
           </div>
@@ -64,7 +66,7 @@ export default function Home() {
             </div>
             <h1 className="font-bold text-2xl h-[60px]">CULTURE FACTS</h1>
             <p className="text-center">Find out how to set up the game board, distribute components</p>
-            <Button variant={"outline"} className="rounded-2xl border-primary">
+            <Button variant={"outline"} className="rounded-2xl border-primary" onClick={() => route.push("/culture")}>
               View more
             </Button>
           </div>
