@@ -5,13 +5,10 @@ import PlayQuiz from "@/components/play/playQuiz";
 import { redirect } from "next/navigation";
 
 const getAllQuestion = async ({ slug }: { slug: string }) => {
-  return await fetch(
-    `${process.env.NEXTAUTH_URL}/api/question/difficulty/${slug}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-    },
-  ).then((res) => res.json());
+  return await fetch(`${process.env.NEXTAUTH_URL}/api/question/difficulty/${slug}`, {
+    method: "GET",
+    cache: "no-cache",
+  }).then((res) => res.json());
 };
 
 const getQuiz = async ({ slug }: { slug: string | undefined }) => {
@@ -22,6 +19,13 @@ const getQuiz = async ({ slug }: { slug: string | undefined }) => {
 
 const page = async ({ params }: { params: { slug: string } }) => {
   const questions = await getAllQuestion({ slug: params.slug });
+  if (questions === undefined || questions === null) {
+    return (
+      <div className="flex h-screen mx-auto">
+        <h1> SORRY, THERE ARE NO QUESTION ADDED </h1>
+      </div>
+    );
+  }
   const cookieQuiz = cookies().get("quizId");
   const cookieName = cookies().get("name");
   if (cookieQuiz === undefined || cookieName === undefined) {
@@ -35,9 +39,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
     });
   }
 
-  const question = await questionFiltered[
-    Math.floor(Math.random() * questionFiltered.length)
-  ];
+  const question = await questionFiltered[Math.floor(Math.random() * questionFiltered.length)];
   if (question === undefined || question === null) {
     return {
       notFound: true,

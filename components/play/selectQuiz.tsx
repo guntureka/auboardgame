@@ -107,19 +107,27 @@ const SelectQuiz = ({ quiz }: { quiz: Quiz[] }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredQuiz.map((quiz, index) => (
-                <TableRow key={quiz.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{quiz.quiz}</TableCell>
-                  <TableCell>{allQuestion(quiz.allQuestion)}</TableCell>
-                  <TableCell>{quiz?.user?.username}</TableCell>
-                  <TableCell>
-                    <Button type={`button`} onClick={() => handlePlay(quiz.id, quiz.allQuestion)}>
-                      Play!
-                    </Button>
+              {filteredQuiz.length != 0 ? (
+                filteredQuiz.map((quiz, index) => (
+                  <TableRow key={quiz.id}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{quiz.quiz}</TableCell>
+                    <TableCell>{allQuestion(quiz.allQuestion)}</TableCell>
+                    <TableCell>{quiz?.user?.username}</TableCell>
+                    <TableCell>
+                      <Button type={`button`} onClick={() => handlePlay(quiz.id, quiz.allQuestion)}>
+                        Play!
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className={`text-center`}>
+                    Quiz Not Found.
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </div>
