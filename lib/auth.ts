@@ -66,19 +66,13 @@ export const authOptions: NextAuthOptions = {
         id: users.id,
         role: users.role,
         username: users.username,
-      };  
+      };
     },
     async redirect({ url, baseUrl }) {
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
-    },
-    async signIn({ user, credentials, email, profile, account }) {
-      if (!user || !credentials || !profile) {
-        return redirect("/login");
-      }
-      return true;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
