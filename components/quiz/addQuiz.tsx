@@ -1,35 +1,17 @@
 "use client";
 
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
-
+import useSWR from "swr";
+import { Category } from "@prisma/client";
 const AddQuiz = ({ session }: { session: Session | null }) => {
   const router = useRouter();
 
@@ -37,6 +19,7 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
     defaultValues: {
       quiz: "",
       allQuestion: "",
+      category: "",
     },
   });
 
@@ -92,20 +75,14 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
           <DialogDescription>Add new quiz</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-3"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
             <FormField
               control={form.control}
               name="allQuestion"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Game</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value.toString()}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a Category" />

@@ -4,6 +4,10 @@ import React from "react";
 const getAllQuiz = async () => {
   return await fetch(`${process.env.NEXTAUTH_URL}/api/quiz`, {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
   }).then((res) => res.json());
 };
 

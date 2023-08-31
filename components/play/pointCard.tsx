@@ -2,13 +2,7 @@
 
 import { deleteCookie, getCookie, getCookies, setCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
@@ -16,14 +10,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
 import QrCodeScanner from "../qrcode/qrCodeScanner";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const PointCard = () => {
   const router = useRouter();
@@ -151,10 +138,7 @@ const PointCard = () => {
               </TableBody>
             </Table>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(handlePay)}
-                className="flex flex-col gap-5"
-              >
+              <form onSubmit={form.handleSubmit(handlePay)} className="flex flex-col gap-5">
                 <FormField
                   control={form.control}
                   name="point"
@@ -168,11 +152,7 @@ const PointCard = () => {
                   )}
                 />
                 <div className={`flex gap-5`}>
-                  <Button
-                    type={"button"}
-                    className="w-full"
-                    onClick={() => handleJual()}
-                  >
+                  <Button type={"button"} className="w-full" onClick={() => handleJual()}>
                     Jual
                   </Button>
 
@@ -183,18 +163,10 @@ const PointCard = () => {
               </form>
             </Form>
             <div className="flex gap-5">
-              <Button
-                className="w-full"
-                variant={"destructive"}
-                onClick={handleStop}
-              >
+              <Button className="w-full" variant={"destructive"} onClick={handleStop}>
                 Berhenti
               </Button>
-              <Button
-                className="w-full"
-                variant={"default"}
-                onClick={handleNext}
-              >
+              <Button className="w-full" variant={"default"} onClick={handleNext}>
                 Lanjut
               </Button>
             </div>
@@ -211,9 +183,7 @@ const PointCard = () => {
               <QrCodeScanner />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-5">
-              null
-            </div>
+            <div className="flex flex-col items-center justify-center gap-5">null</div>
           )}
         </div>
       </div>
