@@ -1,30 +1,11 @@
 "use client";
 
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AiTwotoneStar } from "react-icons/ai";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
@@ -40,15 +21,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const AddQuestion = ({ session }: { session: Session | null }) => {
   const router = useRouter();
   const [answers, setAnswers] = React.useState<string[]>(Array(5).fill(""));
-  const [correct, setCorrect] = React.useState<string[]>(
-    Array(5).fill(Boolean(false)),
-  );
+  const [correct, setCorrect] = React.useState<string[]>(Array(5).fill(Boolean(false)));
   const difficulty = ["easy", "medium", "hard", "expert", "master"];
-  const {
-    data: categories,
-    error,
-    isLoading,
-  } = useSWR(`/api/category`, fetcher);
+  const { data: categories, error, isLoading } = useSWR(`/api/category`, fetcher);
 
   const form = useForm({
     defaultValues: {
@@ -63,11 +38,7 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
   const onSubmit = async () => {
     console.log(form.getValues());
     try {
-      if (
-        form.getValues().question === "" ||
-        form.getValues().answer.filter((item) => item === "").length > 0 ||
-        form.getValues().correct.filter((item) => item === "").length > 0
-      ) {
+      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item === "").length > 0 || form.getValues().category === "") {
         toast({
           title: "Error",
           variant: "destructive",
@@ -128,20 +99,14 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
         </DialogHeader>
         <ScrollArea className="h-96">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-3"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
               <FormField
                 control={form.control}
                 name="difficulty"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Difficulty</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={"nasi Kuning"} />
@@ -151,11 +116,9 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                         {difficulty.map((item, index) => (
                           <SelectItem key={`difficulty-${index}`} value={item}>
                             <div className="flex" key={`div-${index}`}>
-                              {Array.from({ length: index + 1 }).map(
-                                (_, idx) => (
-                                  <AiTwotoneStar key={idx} />
-                                ),
-                              )}
+                              {Array.from({ length: index + 1 }).map((_, idx) => (
+                                <AiTwotoneStar key={idx} />
+                              ))}
                             </div>
                           </SelectItem>
                         ))}
@@ -172,10 +135,7 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={"Select category"} />
@@ -186,29 +146,14 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                           (
                             item: {
                               id: string;
-                              category:
-                                | string
-                                | number
-                                | boolean
-                                | React.ReactElement<
-                                    any,
-                                    string | React.JSXElementConstructor<any>
-                                  >
-                                | Iterable<React.ReactNode>
-                                | React.ReactPortal
-                                | React.PromiseLikeOfReactNode
-                                | null
-                                | undefined;
+                              category: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined;
                             },
-                            index: any,
+                            index: any
                           ) => (
-                            <SelectItem
-                              key={`category-${index}`}
-                              value={item.id}
-                            >
+                            <SelectItem key={`category-${index}`} value={item.id}>
                               {item.category}
                             </SelectItem>
-                          ),
+                          )
                         )}
                       </SelectContent>
                     </Select>
@@ -254,10 +199,7 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                         <FormItem className="flex flex-col gap-3">
                           <FormLabel>Correct</FormLabel>
                           <FormControl className="mx-auto">
-                            <Checkbox
-                              {...field}
-                              onCheckedChange={field.onChange}
-                            />
+                            <Checkbox {...field} onCheckedChange={field.onChange} />
                           </FormControl>
                         </FormItem>
                       )}
