@@ -9,7 +9,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="col-span-2 max-md:hidden">
             <DashMenu />
           </div>
-          <div className="col-span-full md:col-span-10">{children}</div>
+          <div className="col-span-full md:col-span-10 min-h-[600px]">{children}</div>
         </div>
       </Suspense>
     </section>
