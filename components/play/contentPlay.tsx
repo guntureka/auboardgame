@@ -37,7 +37,7 @@ const ContentPlay = () => {
       <div className={`flex flex-col gap-5 justify-center items-center ${currentPage === 1 ? "" : "hidden"}`}>
         <Image src={`/images/logo.png`} alt={`logo`} width={500} height={500} />
         <h1>Welcome to AU BOARD GAME</h1>
-        <p className="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p className="text-center">Lets Play !!!</p>
         <Button variant={`destructive`} className={`rounded-2xl`} onClick={handleNext}>
           GET STARTED
         </Button>

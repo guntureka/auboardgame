@@ -22,12 +22,7 @@ const Navbar = () => {
           </div>
           <div className={session ? "hidden md:flex" : "flex"}>
             <Link href={"/"}>
-              <Image
-                src={`/images/logo.png`}
-                alt={`logo`}
-                width={50}
-                height={50}
-              />
+              <Image src={`/images/logo.png`} alt={`logo`} width={50} height={50} />
             </Link>
           </div>
         </div>

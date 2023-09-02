@@ -16,7 +16,7 @@ const DashMenu = () => {
       {admin ? (
         <div className="hidden md:flex flex-col">
           {MenuProfile.dashboard.map((item, index) => (
-            <Link key={index} href={item.link} className={` py-2 hover:bg-primary hover:text-white rounded hover:px-2 ${item.link === path ? "px-2 bg-primary text-primary-foreground" : ""}`}>
+            <Link key={index} href={item.link} className={` py-2 hover:bg-primary hover:text-primary-foreground rounded hover:px-2 ${item.link === path ? "px-2 bg-primary text-primary-foreground" : ""}`}>
               {item.title}
             </Link>
           ))}
@@ -28,7 +28,7 @@ const DashMenu = () => {
               return null;
             }
             return (
-              <Link key={index} href={item.link} className={` py-2 hover:bg-primary hover:text-white rounded hover:px-2 ${item.link === path ? "px-2 bg-primary text-primary-foreground" : ""}`}>
+              <Link key={index} href={item.link} className={` py-2 hover:bg-primary hover:text-primary-foreground rounded hover:px-2 ${item.link === path ? "px-2 bg-primary text-primary-foreground" : ""}`}>
                 {item.title}
               </Link>
             );

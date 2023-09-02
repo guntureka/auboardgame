@@ -13,8 +13,8 @@ export default function Home() {
     <div>
       <div className="grid md:grid-cols-2 grid-cols-1">
         <div className="bg-blue-500 flex flex-col gap-5 items-start justify-center p-16">
-          <h1 className="font-bold text-4xl text-destructive ">WELCOME TO OUR OFFICIAL WEBSITE</h1>
-          <p className={"text-justify text-black"}>Welcom to our official website, where you can find all the information about our board game.</p>
+          <h1 className="font-extrabold text-4xl text-destructive ">WELCOME TO OUR OFFICIAL WEBSITE</h1>
+          <p className={"text-justify text-black"}>Welcome to our official website, where you can find all the information about our board game.</p>
         </div>
         <div className="bg-red-500 flex flex-col gap-5 items-center justify-center p-20">
           <Image src={"/images/papan.png"} width={400} height={400} alt="papan" />
