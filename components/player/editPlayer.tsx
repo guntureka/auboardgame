@@ -1,36 +1,18 @@
 "use client";
 
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Player } from "./columns";
 import useSWR from "swr";
 import { ScrollArea } from "../ui/scroll-area";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -66,7 +48,7 @@ const EditPlayer = ({ player }: { player: Player }) => {
         router.refresh();
         toast({
           title: "Success",
-          variant: "default",
+          variant: "success",
           description: "Player edited successfully",
         });
         return;
@@ -85,43 +67,24 @@ const EditPlayer = ({ player }: { player: Player }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full" variant={"default"}>
-          Edit Player
+        <Button className="w-full" variant={"success"}>
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Player</DialogTitle>
-          <DialogDescription>Edit new player</DialogDescription>
+        <DialogHeader className="gap-3">
+          <DialogTitle className="text-center">Edit Player</DialogTitle>
+          <DialogDescription className="text-center">Edit new player</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-3"
-          >
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Game</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Game name..." />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 px-2">
             <FormField
               control={form.control}
               name="quiz"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Quiz</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder={field.value} />
@@ -141,9 +104,23 @@ const EditPlayer = ({ player }: { player: Player }) => {
               )}
             />
 
-            <Button type="submit" className="w-full">
-              <span>Edit Game</span>
-            </Button>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Player</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Player name..." />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <DialogClose>
+              <Button type="submit" variant={"success"} className="w-full">
+                <span>Edit Player</span>
+              </Button>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>

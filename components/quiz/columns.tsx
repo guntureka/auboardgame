@@ -3,27 +3,11 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import type { User } from "@prisma/client";
 import EditGame from "./editGame";
 import AddPlayer from "../player/addPlayer";
@@ -40,20 +24,8 @@ interface Quiz {
 export const columns: ColumnDef<Quiz>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => <Checkbox checked={table.getIsAllRowsSelected()} onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)} aria-label="Select all" />,
+    cell: ({ row }) => <Checkbox checked={row.getIsSelected()} onCheckedChange={(value) => row.toggleSelected(!!value)} aria-label="Select row" />,
     enableSorting: false,
     enableHiding: false,
   },
@@ -61,11 +33,7 @@ export const columns: ColumnDef<Quiz>[] = [
     id: "no",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           NO
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -85,11 +53,7 @@ export const columns: ColumnDef<Quiz>[] = [
     accessorKey: "id",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -100,11 +64,7 @@ export const columns: ColumnDef<Quiz>[] = [
     accessorKey: "quiz",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           Quiz
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -115,11 +75,7 @@ export const columns: ColumnDef<Quiz>[] = [
     accessorKey: "allQuestion",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           All Question
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -130,11 +86,7 @@ export const columns: ColumnDef<Quiz>[] = [
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           Created At
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -145,11 +97,7 @@ export const columns: ColumnDef<Quiz>[] = [
     accessorKey: "user.name",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="w-full"
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="w-full">
           User
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -184,15 +132,13 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
     if (res.ok) {
       router.refresh();
       toast({
-        variant: "default",
-        className: "bg-green-500",
+        variant: "destructive",
         title: "Success",
         description: `game deleted successfully`,
       });
     } else {
       toast({
-        variant: "default",
-        className: "bg-red-500",
+        variant: "destructive",
         title: "Error",
         description: `Something went wrong`,
       });
@@ -214,11 +160,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
         <DropdownMenuSeparator />
         <AddPlayer />
         <DropdownMenuSeparator />
-        <Button
-          variant={`ghost`}
-          className="w-full"
-          onClick={() => router.push(`/dashboard/quiz-game/${quiz.id}`)}
-        >
+        <Button variant={`ghost`} className="w-full" onClick={() => router.push(`/dashboard/quiz-game/${quiz.id}`)}>
           Show player
         </Button>
         <DropdownMenuSeparator />
@@ -231,10 +173,7 @@ const ActionQuiz = ({ quiz }: { quiz: Quiz }) => {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </AlertDialogDescription>
+              <AlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>

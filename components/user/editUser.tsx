@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Label } from "@radix-ui/react-label";
 
 interface User {
   id: number;
@@ -19,6 +21,7 @@ interface User {
 
 const EditUser = ({ user }: { user: User }) => {
   const router = useRouter();
+  const [isSamePassword, setIsSamePassword] = React.useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -26,6 +29,7 @@ const EditUser = ({ user }: { user: User }) => {
       username: user?.username,
       password: user.password,
       role: user.role,
+      passwordConfirm: "",
     },
   });
 
@@ -33,8 +37,7 @@ const EditUser = ({ user }: { user: User }) => {
     try {
       if (form.getValues("username") === "" || form.getValues("password") === "") {
         toast({
-          variant: "default",
-          className: "bg-red-500",
+          variant: "destructive",
           title: "Error",
           description: `Please fill all the fields`,
         });
@@ -53,8 +56,7 @@ const EditUser = ({ user }: { user: User }) => {
         }
       }
       toast({
-        variant: "default",
-        className: "bg-green-500",
+        variant: "success",
         title: "User updated",
         description: `${form.getValues("username")} has been updated to database`,
       });
@@ -65,17 +67,38 @@ const EditUser = ({ user }: { user: User }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full" variant={"ghost"}>
-          Edit User
+        <Button className="w-full" variant={"success"}>
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="gap-3">
-          <DialogTitle className="text-center">Add User</DialogTitle>
-          <DialogDescription className="text-center">Add new user to database</DialogDescription>
+          <DialogTitle className="text-center">Edit User</DialogTitle>
+          <DialogDescription className="text-center">User has been edited</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 px-2">
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="user">User</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="name"
@@ -112,32 +135,32 @@ const EditUser = ({ user }: { user: User }) => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="role"
+              name="passwordConfirm"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={field.value} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="user">User</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <Label className={isSamePassword ? "hidden" : "text-destructive"}> password not same !</Label>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      required={form.getValues("password") === field.value || field.value === "" ? setIsSamePassword(true)! : setIsSamePassword(false)!}
+                      type={"password"}
+                      placeholder={"password"}
+                      className={isSamePassword ? "" : "border-destructive"}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />
 
-            <div>
+            <DialogClose asChild>
               <Button className="w-full my-3 bg-green-500 hover:bg-green-500/90" type="submit">
                 Edit
               </Button>
-            </div>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>

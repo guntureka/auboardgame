@@ -10,22 +10,24 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { Label } from "@radix-ui/react-label";
+import { toast } from "@/components/ui/use-toast";
 
 const SignupForm = () => {
-  const { toast } = useToast();
+  const [isSamePassword, setIsSamePassword] = React.useState(false);
   const form = useForm({
     defaultValues: {
       username: "",
       password: "",
       name: "",
+      passwordConfirm: "",
     },
   });
 
   const router = useRouter();
 
   const handleSubmit = async () => {
-    if (!form.getValues().username || !form.getValues().password || !form.getValues().name) {
+    if (!form.getValues().username || !form.getValues().password || !form.getValues().name || !isSamePassword) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -58,7 +60,7 @@ const SignupForm = () => {
 
         if (res.ok) {
           toast({
-            variant: "default",
+            variant: "success",
             title: "Success",
             description: "User created",
           });
@@ -121,6 +123,25 @@ const SignupForm = () => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input {...field} type="password" placeholder="Password..." />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="passwordConfirm"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <Label className={isSamePassword ? "hidden" : "text-destructive"}> password not same !</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        required={form.getValues("password") === field.value || field.value === "" ? setIsSamePassword(true)! : setIsSamePassword(false)!}
+                        type={"password"}
+                        placeholder={"password"}
+                        className={isSamePassword ? "" : "border-destructive"}
+                      />
                     </FormControl>
                   </FormItem>
                 )}

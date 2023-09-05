@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
@@ -11,6 +11,13 @@ import { Textarea } from "../ui/textarea";
 const ProfileCard = ({ user }: { user: User }) => {
   const created = new Date(user.createdAt);
   const updated = new Date(user.updatedAt);
+  if (!user) {
+    return (
+      <div>
+        <h1>Not Found</h1>
+      </div>
+    );
+  }
   return (
     <div className="p-3">
       <Card className="py-3 grid grid-cols-1 ">

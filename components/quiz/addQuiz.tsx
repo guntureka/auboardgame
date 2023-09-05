@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import useSWR from "swr";
 import { Category } from "@prisma/client";
+import { DialogClose } from "@radix-ui/react-dialog";
 const AddQuiz = ({ session }: { session: Session | null }) => {
   const router = useRouter();
 
@@ -48,7 +49,7 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
         router.refresh();
         toast({
           title: "Success",
-          variant: "default",
+          variant: "success",
           description: "Quiz added successfully",
         });
         return;
@@ -67,21 +68,21 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"default"}>Add Quiz</Button>
+        <Button variant={"success"}>Add Quiz</Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add Quiz</DialogTitle>
-          <DialogDescription>Add new quiz</DialogDescription>
+        <DialogHeader className="gap-3">
+          <DialogTitle className="text-center">Add Quiz</DialogTitle>
+          <DialogDescription className="text-center">Add new quiz</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 px-2">
             <FormField
               control={form.control}
               name="allQuestion"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Game</FormLabel>
+                  <FormLabel>Question options</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
                     <FormControl>
                       <SelectTrigger>
@@ -101,17 +102,18 @@ const AddQuiz = ({ session }: { session: Session | null }) => {
               name="quiz"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Game</FormLabel>
+                  <FormLabel>Quiz</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Game name..." />
+                    <Input {...field} placeholder="Quiz name..." />
                   </FormControl>
                 </FormItem>
               )}
             />
-
-            <Button type="submit" className="w-full">
-              <span>Add Game</span>
-            </Button>
+            <DialogClose>
+              <Button type="submit" variant={"success"} className="w-full">
+                <span>Add Quiz</span>
+              </Button>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>

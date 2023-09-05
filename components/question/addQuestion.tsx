@@ -15,6 +15,7 @@ import useSWR from "swr";
 import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -36,9 +37,8 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
   });
 
   const onSubmit = async () => {
-    console.log(form.getValues());
     try {
-      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item === "").length > 0 || form.getValues().category === "") {
+      if (form.getValues().question === "" || form.getValues().answer.filter((item) => item === "").length > 0 || form.getValues().correct.filter((item) => item).length < 1 || form.getValues().category === "") {
         toast({
           title: "Error",
           variant: "destructive",
@@ -77,7 +77,7 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
         router.refresh();
         toast({
           title: "Success",
-          variant: "default",
+          variant: "success",
           description: "Question added successfully",
         });
         return;
@@ -90,16 +90,16 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Question</Button>
+        <Button variant={"success"}>Add Question</Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add Question</DialogTitle>
-          <DialogDescription>Add new question</DialogDescription>
+        <DialogHeader className="gap-3">
+          <DialogTitle className="text-center">Add Question</DialogTitle>
+          <DialogDescription className="text-center">Add new question</DialogDescription>
         </DialogHeader>
         <ScrollArea className="h-96">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 px-2">
               <FormField
                 control={form.control}
                 name="difficulty"
@@ -135,7 +135,7 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={"Select category"} />
@@ -207,10 +207,11 @@ const AddQuestion = ({ session }: { session: Session | null }) => {
                   </div>
                 </div>
               ))}
-
-              <Button type="submit" className="w-full">
-                <span>Add Answer</span>
-              </Button>
+              <DialogClose>
+                <Button type="submit" variant={"success"} className="w-full">
+                  Add Question
+                </Button>
+              </DialogClose>
             </form>
           </Form>
         </ScrollArea>

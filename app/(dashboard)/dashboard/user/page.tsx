@@ -24,8 +24,8 @@ const UserPage = async () => {
   }
   const user = await getData();
   return (
-    <div className="mt-5">
-      <div className="text-center">
+    <div>
+      <div className="text-center py-3 my-5">
         <h1 className="text center font-bold text-4xl">User</h1>
       </div>
       <AddUser />

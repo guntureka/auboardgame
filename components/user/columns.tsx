@@ -120,16 +120,14 @@ const ActionMenu = ({ user }: { user: User }) => {
     if (res.ok) {
       router.refresh();
       toast({
-        variant: "default",
-        className: "bg-green-500",
-        title: "Success",
+        variant: "destructive",
+        title: "User Deleted!",
         description: `User deleted successfully`,
       });
-      return
+      return;
     } else {
       toast({
-        variant: "default",
-        className: "bg-red-500",
+        variant: "destructive",
         title: "Error",
         description: `Something went wrong`,
       });
@@ -149,7 +147,7 @@ const ActionMenu = ({ user }: { user: User }) => {
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant={"ghost"} className="w-full">
-              View more
+              View
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -182,7 +180,7 @@ const ActionMenu = ({ user }: { user: User }) => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
-                  handleDelete().then(() => console.log('Delete') );
+                  handleDelete().then(() => console.log("Delete"));
                 }}
                 className="bg-destructive hover:bg-destructive/90"
               >
