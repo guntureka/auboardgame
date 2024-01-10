@@ -33,7 +33,7 @@ const PlayQuiz = ({ questions }: { questions: Question }) => {
   const [point, setPoint] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTime((prev) => prev - 10);
+      setTime((prev) => prev - 5);
     }, 1000);
     if (time === 0) {
       clearTimeout(timer);
